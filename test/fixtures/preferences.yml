@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  professor_id: 
+  offering_id: 
+  first_major: MyString
+  second_major: MyString
+  third_major: MyString
+  first_service: MyString
+  second_service: MyString
+  third_service: MyString
+  ttc_proposal_1: MyString
+  ttc_proposal_2: MyString
+  ttc_proposal_3: MyString
+  comments: MyText
+  semester: 2016-02-05
+
+two:
+  professor_id: 
+  offering_id: 
+  first_major: MyString
+  second_major: MyString
+  third_major: MyString
+  first_service: MyString
+  second_service: MyString
+  third_service: MyString
+  ttc_proposal_1: MyString
+  ttc_proposal_2: MyString
+  ttc_proposal_3: MyString
+  comments: MyText
+  semester: 2016-02-05
