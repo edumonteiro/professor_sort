@@ -1,8 +1,9 @@
 class Admin::OfferingsController < ApplicationController
   before_action :set_offering, only: [:show, :edit, :update, :destroy]
 
+
   def index
-    @offerings = Offering.all
+    @offerings = Offering.joins(:course).order("courses.name ASC")
     @new_offering = Offering.new
   end
 
