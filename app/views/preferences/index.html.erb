@@ -1,0 +1,98 @@
+<h1>List of Preferences</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>First Major</th>
+      <th>Second Major</th>
+      <th>Third Major</th>
+      <th>First Service</th>
+      <th>Second Service</th>
+      <th>Third Service</th>
+      <th>First Project</th>
+      <th>Second Project</th>
+      <th>Third Project</th>
+      <th>Semester</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @preferences.each do |preference| %>
+      <tr>
+        <td><%= preference.first_major %></td>
+        <td><%= preference.second_major %></td>
+        <td><%= preference.third_major %></td>
+        <td><%= preference.first_service %></td>
+        <td><%= preference.second_service %></td>
+        <td><%= preference.third_service %></td>
+        <td><%= preference.ttc_proposal_1 %></td>
+        <td><%= preference.ttc_proposal_2 %></td>
+        <td><%= preference.ttc_proposal_3 %></td>
+        <td><%= preference.semester %></td>
+
+
+        <td><%= link_to 'Edit', edit_professor_preference_path(preference) %></td>
+        <td><%= link_to 'Destroy', professor_preference_path(preference), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<% if @preference.errors.any? %>
+  <div>
+    <%= pluralize(@preference.errors.count, "error") %> prevented this preference from being submitted:
+      <ul>
+        <% @preference.errors.full_messages.each do |msg|%>
+        <li> <%= msg %></li>
+        <% end %>
+      </ul>
+  </div>
+<% end %>
+
+<%= form_for [:professor, @preference], url: {action: "create"} do |f| %>
+  <div>
+    <%= f.label 'First Major' %>
+    <%= f.select :first_major, options_for_select(@offering_major_selector) %>
+  </div>
+  <div>
+    <%= f.label 'Second Major' %>
+    <%= f.select :second_major, options_for_select(@offering_major_selector) %>
+  </div>
+  <div>
+    <%= f.label 'Third Major' %>
+    <%= f.select :third_major, options_for_select(@offering_major_selector) %>
+  </div>
+  <div>
+    <%= f.label 'First Service' %>
+    <%= f.select :first_service, options_for_select(@offering_service_selector)%>
+  </div>
+  <div>
+    <%= f.label 'Second Service' %>
+    <%= f.select :second_service, options_for_select(@offering_service_selector) %>
+  </div>
+  <div>
+    <%= f.label 'Third Service' %>
+    <%= f.select :third_service, options_for_select(@offering_service_selector) %>
+  </div>
+  <div>
+    <%= f.label 'Final Project 1' %>
+    <%= f.text_field :ttc_proposal_1 %>
+  </div>
+  <div>
+    <%= f.label 'Final Project 2' %>
+    <%= f.text_field :ttc_proposal_2 %>
+  </div>
+  <div>
+    <%= f.label 'Final Project 3' %>
+    <%= f.text_field :ttc_proposal_3 %>
+  </div>
+  <div>
+    <%= f.label 'Semester' %>
+    <%= f.text_field :semester %>
+  </div>
+  <div>
+    <%= f.submit "Create" %>
+  </div>
+<% end %> 
