@@ -20,17 +20,16 @@
   <tbody>
     <% @preferences.each do |preference| %>
       <tr>
-        <td><%= preference.first_major %></td>
-        <td><%= preference.second_major %></td>
-        <td><%= preference.third_major %></td>
-        <td><%= preference.first_service %></td>
-        <td><%= preference.second_service %></td>
-        <td><%= preference.third_service %></td>
+        <td><%= Course.find(Offering.find(preference.first_major).course_id).name%> <em><%=Offering.find(preference.first_major).letter%></em></td>
+        <td><%= Course.find(Offering.find(preference.second_major).course_id).name %> <em><%=Offering.find(preference.second_major).letter%></em></td>
+        <td><%= Course.find(Offering.find(preference.third_major).course_id).name %> <em><%=Offering.find(preference.third_major).letter%></em></td>
+        <td><%= Course.find(Offering.find(preference.first_service).course_id).name %> <em><%=Offering.find(preference.first_service).letter%></em></td>
+        <td><%= Course.find(Offering.find(preference.second_service).course_id).name %> <em><%=Offering.find(preference.second_service).letter%></em></td>
+        <td><%= Course.find(Offering.find(preference.third_service).course_id).name %> <em><%=Offering.find(preference.third_service).letter%></em></td>
         <td><%= preference.ttc_proposal_1 %></td>
         <td><%= preference.ttc_proposal_2 %></td>
         <td><%= preference.ttc_proposal_3 %></td>
         <td><%= preference.semester %></td>
-
 
         <td><%= link_to 'Edit', edit_professor_preference_path(preference) %></td>
         <td><%= link_to 'Destroy', professor_preference_path(preference), method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -40,59 +39,3 @@
 </table>
 
 
-<% if @preference.errors.any? %>
-  <div>
-    <%= pluralize(@preference.errors.count, "error") %> prevented this preference from being submitted:
-      <ul>
-        <% @preference.errors.full_messages.each do |msg|%>
-        <li> <%= msg %></li>
-        <% end %>
-      </ul>
-  </div>
-<% end %>
-
-<%= form_for [:professor, @preference], url: {action: "create"} do |f| %>
-  <div>
-    <%= f.label 'First Major' %>
-    <%= f.select :first_major, options_for_select(@offering_major_selector) %>
-  </div>
-  <div>
-    <%= f.label 'Second Major' %>
-    <%= f.select :second_major, options_for_select(@offering_major_selector) %>
-  </div>
-  <div>
-    <%= f.label 'Third Major' %>
-    <%= f.select :third_major, options_for_select(@offering_major_selector) %>
-  </div>
-  <div>
-    <%= f.label 'First Service' %>
-    <%= f.select :first_service, options_for_select(@offering_service_selector)%>
-  </div>
-  <div>
-    <%= f.label 'Second Service' %>
-    <%= f.select :second_service, options_for_select(@offering_service_selector) %>
-  </div>
-  <div>
-    <%= f.label 'Third Service' %>
-    <%= f.select :third_service, options_for_select(@offering_service_selector) %>
-  </div>
-  <div>
-    <%= f.label 'Final Project 1' %>
-    <%= f.text_field :ttc_proposal_1 %>
-  </div>
-  <div>
-    <%= f.label 'Final Project 2' %>
-    <%= f.text_field :ttc_proposal_2 %>
-  </div>
-  <div>
-    <%= f.label 'Final Project 3' %>
-    <%= f.text_field :ttc_proposal_3 %>
-  </div>
-  <div>
-    <%= f.label 'Semester' %>
-    <%= f.text_field :semester %>
-  </div>
-  <div>
-    <%= f.submit "Create" %>
-  </div>
-<% end %> 
