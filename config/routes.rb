@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
 
+  
+
 resource :professor, only: [:new, :create, :edit, :update]
 
 namespace :admin do
-  resources :professors, except: [:destroy]
+  resources :professors
   resources :offerings
   resources :courses
 end

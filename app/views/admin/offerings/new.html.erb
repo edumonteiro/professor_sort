@@ -1,0 +1,24 @@
+
+
+<%= form_for [:admin, @offering] do |f| %>
+  <div class="field">
+    <%= f.label :course_id %><br>
+    <%= f.select :course_id, options_for_select(Course.pluck(:name, :id)) %>
+  </div>
+  <div class="field">
+    <%= f.label :letter %><br>
+    <%= f.text_field :letter %>
+  </div>
+  <div class="field">
+    <%= f.label :schedule %><br>
+    <%= f.text_field :schedule %>
+  </div>
+  <div class="field">
+    <%= f.label :professor_id %><br>
+    <%= f.text_field :professor_id %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
