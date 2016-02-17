@@ -1,0 +1,46 @@
+<h1>List of Courses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>credits</th>
+      <th>type</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @courses.each do |course| %>
+      <tr>
+        <td><%= course.name %></td>
+        <td><%= course.credits %></td>
+        <td><%= course.kind %></td>
+        <td><%=  link_to 'Edit', edit_admin_course_path(course) %></td>
+        <td><%= link_to 'Destroy', admin_course_path(course), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<h3>Add new course</h3>
+
+<%= form_for [:admin, @new_course] do |f| %>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :credits %><br>
+    <%= f.text_field :credits %>
+  </div>
+  <div class="field">
+    <%= f.label "Type" %><br>
+    <%= f.text_field :kind %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

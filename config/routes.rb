@@ -5,7 +5,8 @@ resource :professor, only: [:new, :create, :edit, :update, :show] do
 end
 
 resource :session, only: [:new, :create, :destroy]
-###
+####
+
 namespace :admin do
   resources :professors
   resources :offerings

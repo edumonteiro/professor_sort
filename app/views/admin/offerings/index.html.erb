@@ -1,0 +1,57 @@
+<h1>Listing Offerings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>letter</th>
+      <th>schedule</th>
+      <th>professor</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @offerings.each do |offering| %>
+      <tr>
+        <td><%= offering.course.name %></td>
+        <td><%= offering.letter %></td>
+        <td><%= offering.schedule %></td>
+        <%if offering.professor_id%>
+          <td><%= offering.professor_id %></td>
+        <%else%>
+          <td style="color:red;">To be assigned</td>
+        <%end%>
+        <td><%= link_to 'Edit', edit_admin_offering_path(offering) %></td>
+        <td><%= link_to 'Destroy', admin_offering_path(offering), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<h3>Add new offering</h3>
+
+<%= form_for [:admin, @new_offering] do |f| %>
+  <div class="field">
+    <%= f.label :course_id %><br>
+    <%= f.select :course_id, options_for_select(Course.pluck(:name, :id)) %>
+  </div>
+  <div class="field">
+    <%= f.label :letter %><br>
+    <%= f.text_field :letter %>
+  </div>
+  <div class="field">
+    <%= f.label :schedule %><br>
+    <%= f.text_field :schedule %>
+  </div>
+  <div class="field">
+    <%= f.label :professor_id %><br>
+    <%= f.text_field :professor_id %>
+  </div>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
