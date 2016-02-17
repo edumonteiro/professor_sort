@@ -16,6 +16,11 @@ class Admin::CoursesController < ApplicationController
   end
 
   def show
+    @course = Course.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json { render :json => @course.credits.to_json }
+    end
   end
 
   def update

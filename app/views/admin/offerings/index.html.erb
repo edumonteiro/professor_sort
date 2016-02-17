@@ -16,7 +16,7 @@
       <tr>
         <td><%= offering.course.name %></td>
         <td><%= offering.letter %></td>
-        <td><%= offering.schedule %></td>
+        <td><%= Offering.decode_schedule(offering.schedule) %></td>
         <%if offering.professor_id%>
           <td><%= offering.professor_id %></td>
         <%else%>
@@ -36,19 +36,20 @@
 <%= form_for [:admin, @new_offering] do |f| %>
   <div class="field">
     <%= f.label :course_id %><br>
-    <%= f.select :course_id, options_for_select(Course.pluck(:name, :id)) %>
+    <%= f.select :course_id, options_for_select(Course.order(:name).pluck(:name, :id)), :prompt => "Please select" %>
   </div>
+  <div id="timeforms"></div>
   <div class="field">
     <%= f.label :letter %><br>
-    <%= f.text_field :letter %>
+    <%= f.select :letter,options_for_select(("A".."Z").to_a.zip(("A".."Z").to_a)), :prompt => "Please select" %>
   </div>
-  <div class="field">
+  <div class="field" style="display: none">
     <%= f.label :schedule %><br>
     <%= f.text_field :schedule %>
   </div>
   <div class="field">
     <%= f.label :professor_id %><br>
-    <%= f.text_field :professor_id %>
+    <%= f.select :professor_id, options_for_select(Professor.pluck(:name)), :prompt => "Please select" %>
   </div>
   
   <div class="actions">
