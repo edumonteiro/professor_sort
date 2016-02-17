@@ -16,18 +16,13 @@ class PreferencesController < ApplicationController
     @offering_service_selector = @offering_service_selector.map do|offering|
         [Course.find(offering.course_id).name + " " + offering.letter, offering.id]
     end
-
-    respond_to do |format|
-      format.html
-      format.json { render :json => @asdasd.asdasd.to_json}
-    end
   end
 
   def create
     @preference = Preference.new(preference_params)
 
     if @preference.save
-      redirect_to professor_preferences_path,notice: "#{@preference.id} was submitted successfully!"
+      redirect_to professor_preferences_path
     else
       render :index
     end
