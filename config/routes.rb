@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
-
-resource :professor, only: [:new, :create, :edit, :update] do
+###
+resource :professor, only: [:new, :create, :edit, :update, :show] do
   resources :preferences
 end
 
+resource :session, only: [:new, :create, :destroy]
+###
 namespace :admin do
   resources :professors
   resources :offerings
