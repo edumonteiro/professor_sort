@@ -1,5 +1,4 @@
 class ProfessorsController < ApplicationController
-  # before_filter :restrict_acces
   
   def new
     @professor = Professor.new
@@ -7,8 +6,16 @@ class ProfessorsController < ApplicationController
 
 
   def create
-    @professor = Professor.new(professor_params)    
-    if @professor.save
+    @professor = Professor.new(professor_params) 
+    case professor_params[:kind].downcase
+      when 'secret'
+        @professor.kind = 'admin' 
+      when 'whatever'
+        @professor.kind = 'professor'
+      else
+        @professor.kind = nil
+    end
+    if @professor.kind && @professor.save
       session[:professor_id] = @professor.id
       redirect_to professor_path
     else

@@ -1,5 +1,6 @@
 class Admin::CoursesController < ApplicationController
-  
+  before_filter :restrict_access
+  before_filter :restrict_admin_access
 
   def index
     @courses = Course.all

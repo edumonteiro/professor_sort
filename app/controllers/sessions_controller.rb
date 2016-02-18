@@ -6,12 +6,11 @@ class SessionsController < ApplicationController
     professor = Professor.find_by(email: params[:email])
     if professor && professor.authenticate(params[:password])
       session[:professor_id] = professor.id
-      # if user.admin
-      #   redirect_to admin_users_path, notice: "Welcome to the admin page, #{user.full_name}"
-      # else
-      #   redirect_to movies_path,notice: "Welcome back, #{user.full_name}!"
-      # end
-      redirect_to professor_path
+      if professor.kind == 'admin'
+        redirect_to admin_professor_path, notice: "Welcome to the admin page, #{professor.name}"
+      else
+        redirect_to professor_path,notice: "Welcome back, #{professor.name}!"
+      end
     else
       render :new
     end
@@ -23,9 +22,9 @@ class SessionsController < ApplicationController
   #   redirect_to admin_users_path
   # end
 
-  # def destroy
-  #   session[:user_id] = nil
-  #   redirect_to movies_path, notice: "Adios!"
-  # end
+  def destroy
+    session[:professor_id] = nil
+    redirect_to '/', notice: "Adios!"
+  end
   
 end

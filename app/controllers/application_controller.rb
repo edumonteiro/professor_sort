@@ -12,12 +12,12 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    # def restrict_admin_access
-    #   if current_professor.kind == 'admin'
-    #     flash[:alert] = "You must be an Admin to access here."
-    #     redirect_to movies_path
-    #   end
-    # end
+    def restrict_admin_access
+      if current_professor.kind != 'admin'
+        flash[:alert] = "You must be an Admin to access here."
+        redirect_to professor_path
+      end
+    end
 
     def current_professor
       @current_professor ||= Professor.find(session[:professor_id]) if session[:professor_id]
