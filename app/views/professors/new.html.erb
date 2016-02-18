@@ -1,2 +1,22 @@
-<h1>Professors#new</h1>
-<p>Find me in app/views/professors/new.html.erb</p>
+
+<%= form_for @professor,url: professor_path do |f| %>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :password %><br>
+    <%= f.password_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmatioin %><br>
+    <%= f.password_field :password_confirmatioin %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
