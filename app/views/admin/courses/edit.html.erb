@@ -1,2 +1,19 @@
-<h1>Admin::Courses#edit</h1>
-<p>Find me in app/views/admin/courses/edit.html.erb</p>
+<h1>Edit <%=@course.name%></h1>
+
+<%= form_for [:admin, @course] do |f| %>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :credits %><br>
+    <%= f.text_field :credits %>
+  </div>
+  <div class="field">
+    <%= f.label "Type" %><br>
+    <%= f.select :kind, options_for_select([["major","major"],["service","service"]],@course.kind)  %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
