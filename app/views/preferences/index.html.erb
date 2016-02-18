@@ -16,7 +16,6 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @preferences.each do |preference| %>
       <tr>
@@ -37,5 +36,8 @@
     <% end %>
   </tbody>
 </table>
+<% if @addable %>
+  <button><%= link_to 'New Preference', new_professor_preference_path %></button>
+<% end %>
 
 

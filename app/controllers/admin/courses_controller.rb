@@ -33,20 +33,20 @@ class Admin::CoursesController < ApplicationController
   end
 
   def update
-        @course = Course.find(params[:id])
+    @course = Course.find(params[:id])
 
-        if @course.update_attributes(course_params)
-          redirect_to admin_courses_path
-        else
-          render :edit
-        end
-      end
+    if @course.update_attributes(course_params)
+      redirect_to admin_courses_path
+    else
+      render :edit
+    end
+  end
 
-      def destroy
-        @course = Course.find(params[:id])
-        @course.destroy
-        redirect_to admin_courses_path
-      end
+  def destroy
+    @course = Course.find(params[:id])
+    @course.destroy
+    redirect_to admin_courses_path
+  end
 
 
   private
