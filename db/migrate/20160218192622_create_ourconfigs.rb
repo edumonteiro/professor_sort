@@ -1,6 +1,6 @@
-class CreateConfigurations < ActiveRecord::Migration
+class CreateOurconfigs < ActiveRecord::Migration
   def change
-    create_table :configurations do |t|
+    create_table :ourconfigs do |t|
       t.string :name
       t.string :value
 
