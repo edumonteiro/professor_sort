@@ -13,6 +13,7 @@ namespace :admin do
   resources :professors
   resources :offerings
   resources :courses
+  resources :preferences
 end
 
 resources :lectures
