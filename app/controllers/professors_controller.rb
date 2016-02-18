@@ -1,5 +1,5 @@
 class ProfessorsController < ApplicationController
-  before_filter :restrict_access
+  # before_filter :restrict_acces
   
   def new
     @professor = Professor.new
