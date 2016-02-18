@@ -1,4 +1,4 @@
-<h1>Listing Offerings</h1>
+<h1>Offerings Listing </h1>
 
 <table>
   <thead>
@@ -18,7 +18,7 @@
         <td><%= offering.letter %></td>
         <td><%= Offering.decode_schedule(offering.schedule) %></td>
         <%if offering.professor_id%>
-          <td><%= offering.professor_id %></td>
+          <td><%= offering.professor.name %></td>
         <%else%>
           <td style="color:red;">To be assigned</td>
         <%end%>
@@ -49,7 +49,7 @@
   </div>
   <div class="field">
     <%= f.label :professor_id %><br>
-    <%= f.select :professor_id, options_for_select(Professor.pluck(:name)), :prompt => "Please select" %>
+    <%= f.select :professor_id, options_for_select(Professor.pluck(:name, :id)), :prompt => "Please select" %>
   </div>
   
   <div class="actions">
