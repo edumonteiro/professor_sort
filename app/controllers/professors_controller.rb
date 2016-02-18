@@ -1,29 +1,37 @@
 class ProfessorsController < ApplicationController
-
+  before_filter :restrict_access
+  
   def new
-    @prof = Professor.new
+    @professor = Professor.new
   end
 
 
   def create
-    @prof = Professor.new(prof_params)    
+    @professor = Professor.new(professor_params)    
+    if @professor.save
+      session[:professor_id] = @professor.id
+      redirect_to professor_path
+    else
+      render :new
+    end
   end
 
   def show
-    @prof = current_prof
+    restrict_access
+    @professor = current_professor
   end
 
   def edit
-    @prof = current_prof
+    @professor = current_professor
   end
 
   def update
-    @prof = current_prof
+    @professor = current_professor
   end
 
   protected
-  def prof_params
-    params.require(:professor).permit(:name, :email, :kind, :status)
+  def professor_params
+    params.require(:professor).permit(:name, :email, :kind, :status, :password ,:password_confirmation)
     
   end
 end

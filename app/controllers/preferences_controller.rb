@@ -1,4 +1,5 @@
 class PreferencesController < ApplicationController
+  before_filter :restrict_access
 
   def index
     @preferences = Preference.all

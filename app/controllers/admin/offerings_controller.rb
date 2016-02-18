@@ -1,4 +1,5 @@
 class Admin::OfferingsController < ApplicationController
+  before_filter :restrict_access
   before_action :set_offering, only: [:show, :edit, :update, :destroy]
 
 
