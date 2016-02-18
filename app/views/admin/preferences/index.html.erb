@@ -1,0 +1,8 @@
+<%@professors.each do |professor|%>
+<h3><%=professor.name%></h3>
+<%preference = professor.preferences.where(semester: current_semester).first%>
+<p>First preference for major <%= Offering.find(preference.first_major).course.name%></p>
+<p>Second preference for major <%=Offering.find(preference.second_major).course.name%></p>
+<p>Third preference for major <strong><%=Offering.find(preference.third_major).course.name%></strong></p>
+
+<%end%>

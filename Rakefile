@@ -7,8 +7,13 @@ require './config/environment'
 Rails.application.load_tasks
 
 
-desc "Import the courses"
-task "get_courses" do
+desc "Import all the data, courses offerings and fake data"
+task "get_data" do
+  require './db/import/destroy_all.rb'
   require './db/import/import_courses.rb'
+  require './db/import/import_offerings.rb'
+  require './db/import/import_professors.rb'
+  require './db/import/import_preferences.rb'
+  require './db/import/import_ourconfig.rb'
 end
 
