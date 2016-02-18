@@ -8,6 +8,7 @@ class PreferencesController < ApplicationController
   def create
     @professor = current_professor
     @preference = @professor.preferences.build(preference_params)
+    @preference.semester = current_semester
     if @preference.save
       redirect_to professor_preferences_path
     else

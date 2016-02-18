@@ -1,5 +1,8 @@
 <h1>Admin dashboard</h1>
 
+<h2>Current semester <%=Ourconfig.find_by(name: "semester").value%></h2>
+<%=current_semester.to_s%>
+
 <a href="/admin/offerings">Offerings</a>
 <a href="/admin/professors">Professors</a>
 <a href="/admin/courses">Courses</a>
