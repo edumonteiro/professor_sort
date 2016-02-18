@@ -2,12 +2,12 @@ class PreferencesController < ApplicationController
   before_filter :restrict_access
 
   def index
-    @preferences = Preference.all
+    @preferences = current_professor.preferences
   end
 
   def create
-    @preference = Preference.new(preference_params)
-
+    @professor = current_professor
+    @preference = @professor.preferences.build(preference_params)
     if @preference.save
       redirect_to professor_preferences_path
     else

@@ -1,13 +1,13 @@
 class Admin::ProfessorsController < ApplicationController
-  
+
+  before_filter :restrict_access
+  before_filter :restrict_admin_access
+
   def index
     @professors = Professor.all
     @new_professor = Professor.new
   end
 
-  def new
-    @professor = Professor.new
-  end
 
   def create
     @professor = Professor.new(professor_params)
