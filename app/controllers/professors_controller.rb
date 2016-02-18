@@ -7,8 +7,8 @@ class ProfessorsController < ApplicationController
 
   def create
     @professor = Professor.new(professor_params) 
-    code1 = Configuration.find_by(name: "admin_code").value
-    code2 = Configuration.find_by(name: "professor_code").value
+    code1 = Ourconfig.find_by(name: "admin_code").value
+    code2 = Ourconfig.find_by(name: "professor_code").value
     case professor_params[:kind].downcase
       when code1
         @professor.kind = 'admin' 
