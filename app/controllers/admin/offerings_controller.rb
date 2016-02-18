@@ -23,6 +23,18 @@ class Admin::OfferingsController < ApplicationController
     redirect_to admin_offerings_path
   end
 
+  def edit
+        
+  end
+  
+  def update
+    if @offering.update_attributes(offering_params)
+      redirect_to admin_offerings_path
+    else
+      render :edit
+    end
+  end
+
 
 private
   # Use callbacks to share common setup or constraints between actions.
