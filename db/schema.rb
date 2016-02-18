@@ -13,6 +13,13 @@
 
 ActiveRecord::Schema.define(version: 20160218192622) do
 
+  create_table "configurations", force: :cascade do |t|
+    t.string   "name"
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "courses", force: :cascade do |t|
     t.string   "name"
     t.integer  "credits"
