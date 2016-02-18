@@ -38,7 +38,7 @@
   </div>
   <div class="field">
     <%= f.label "Type" %><br>
-    <%= f.text_field :kind %>
+    <%= f.select :kind, options_for_select([["Major","major"],["Service","service"]]), :prompt => "Please select" %>
   </div>
   <div class="actions">
     <%= f.submit %>

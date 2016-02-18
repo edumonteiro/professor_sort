@@ -15,7 +15,7 @@
       <tr>
         <td><%= offering.course.name %></td>
         <td><%= offering.letter %></td>
-        <td><%= offering.schedule %></td>
+        <td><%= Offering.decode_schedule(offering.schedule) %></td>
       </tr>
     <% end %>
   </tbody>
