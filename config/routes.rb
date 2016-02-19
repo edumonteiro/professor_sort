@@ -16,15 +16,15 @@ namespace :admin do
   resources :offerings
   resources :courses
   resources :preferences
-  get '/' => 'admin#index'
+  get '/' => 'dashboard#index'
+  post '/semester' => 'dashboard#semester'
+  post '/notify_all' => 'dashboard#notify_all'
 end
 
 
 
 resources :lectures
 
- 
- post 'admin/semester' => 'admin#semester'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

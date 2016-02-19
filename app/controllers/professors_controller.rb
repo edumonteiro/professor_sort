@@ -39,11 +39,18 @@ class ProfessorsController < ApplicationController
   end
 
   def edit
+    restrict_access
     @professor = current_professor
   end
 
   def update
+    restrict_access
     @professor = current_professor
+    if @professor.update_attributes(professor_params)
+      redirect_to professor_path
+    else
+      render :edit
+    end
   end
 
   protected
