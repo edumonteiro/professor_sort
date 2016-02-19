@@ -1,5 +1,4 @@
 $(document).on('page:load',function(){
-
   $('.edit_offering').submit(function(event){
     // event.preventDefault();
     var sched = [];

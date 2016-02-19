@@ -1,4 +1,7 @@
-$(function(){
+$(setup);
+$(document).on("page:load", setup);
+
+function setup() {
   $('#offering_course_id').change(function(){
     $('#timeforms').empty();
     $.ajax({
@@ -28,5 +31,5 @@ $(function(){
 
   
 
-});
+}
 
