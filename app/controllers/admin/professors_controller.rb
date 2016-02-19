@@ -27,6 +27,12 @@ class Admin::ProfessorsController < ApplicationController
   end
 
   def update
+    @professor = Professor.find(params[:id])
+    if @professor.update_attributes(professor_params)
+      redirect_to admin_professors_path
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -35,6 +41,9 @@ class Admin::ProfessorsController < ApplicationController
     redirect_to admin_professors_path
   end
 
+  def preferences
+    @preferences = Professor.find(params[:professor_id]).preferences
+  end
 
    private
   

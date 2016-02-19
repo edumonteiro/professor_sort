@@ -18,6 +18,14 @@ class ProfessorsController < ApplicationController
         @professor.kind = nil
     end
     if @professor.kind && @professor.save
+    #this next if is for creating a super user that can edit the other professors kind
+    #only this professor should use the admin code on the signup
+      if @professor.kind == 'admin'
+        new_config = Ourconfig.new
+        new_config.name = "super_user_id"
+        new_config.value = @professor.id 
+        new_config.save       
+      end
       session[:professor_id] = @professor.id
       redirect_to professor_path
     else
