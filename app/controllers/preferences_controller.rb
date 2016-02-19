@@ -1,4 +1,4 @@
-class PreferencesController < ApplicationController
+  class PreferencesController < ApplicationController
   
   before_filter :restrict_access
 

@@ -4,10 +4,10 @@
 <h1>We need to add a field here for the admin to change the current semester and give the tip that it must be formated in the "semester/year" way</h1>
 <div>
   <h2>Set a semester</h2>
-  <form method='post' action='/admin/semester'>
+  <%= form_tag(admin_semester_path,method: 'post') do %> 
     <input type="text" name='semester'/>
-    <input type="submit" value="submit">
-  </form>
+    <input type="submit" value="submit"/>
+  <% end %>
 </div>
 
 

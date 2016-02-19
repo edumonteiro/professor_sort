@@ -19,7 +19,7 @@ end
 resources :lectures
 
  get 'admin/' => 'admin#index'
- get 'admin/semester' => 'admin#semester'
+ post 'admin/semester' => 'admin#semester'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
