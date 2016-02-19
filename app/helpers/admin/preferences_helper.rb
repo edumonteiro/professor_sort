@@ -49,4 +49,47 @@ module Admin::PreferencesHelper
     organized
   end
 
+
+  def course_preferences_reporter
+    result = []
+    Course.all.each do |course|
+      course.offerings.each do |offering|
+        report = {}
+        report[:course_name] = offering.course.name
+        report[:letter] = offering.letter
+        report[:schedule] = offering.schedule
+        report[:semester] = offering.semester
+        if course.kind == "major"
+          report[:first_choice_of] = Preference.where(first_major: offering.id).pluck(:professor_id)
+          report[:second_choice_of] = Preference.where(second_major: offering.id).pluck(:professor_id)
+          report[:third_choice_of] = Preference.where(third_major: offering.id).pluck(:professor_id)
+        else
+          report[:first_choice_of] = Preference.where(first_service: offering.id).pluck(:professor_id)
+          report[:second_choice_of] = Preference.where(second_service: offering.id).pluck(:professor_id)
+          report[:third_choice_of] = Preference.where(third_service: offering.id).pluck(:professor_id)
+        end
+        result << report
+      end
+    end
+    result
+  end
+
+
+  def display_report(results,course)
+    results.select {|hash| hash[:course_name] == course}
+  end
+
+  def decode_semester(date_format)
+    result = nil
+    case date_format.month
+    when 1
+      result = 0
+    when 3
+      result = 1
+    when 8
+      result = 2    
+    end
+    "#{result}/#{date_format.year}"
+  end
+
 end
