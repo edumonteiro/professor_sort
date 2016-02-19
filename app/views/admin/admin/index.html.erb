@@ -1,7 +1,6 @@
 <h1>Admin dashboard</h1>
 
 <h2>Current semester <%=Ourconfig.find_by(name: "semester").value%></h2>
-<h1>We need to add a field here for the admin to change the current semester and give the tip that it must be formated in the "semester/year" way</h1>
 <div>
   <h2>Set a semester</h2>
   <%= form_tag(admin_semester_path,method: 'post') do %> 
@@ -10,7 +9,7 @@
   <% end %>
 </div>
 
-
+<br>
 <a href="/admin/offerings">Offerings</a>
 <a href="/admin/professors">Professors</a>
 <a href="/admin/courses">Courses</a>

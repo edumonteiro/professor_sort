@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     if professor && professor.authenticate(params[:password])
       session[:professor_id] = professor.id
       if professor.kind == 'admin'
-        redirect_to admin_professors_path, notice: "Welcome to the admin page, #{professor.name}"
+        redirect_to admin_path, notice: "Welcome to the admin page, #{professor.name}"
       else
         redirect_to professor_path,notice: "Welcome back, #{professor.name}!"
       end
@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:professor_id] = nil
-    redirect_to '/', notice: "Adios!"
+    redirect_to new_session_path, notice: "Adios!"
   end
   
 end

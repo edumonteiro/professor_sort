@@ -10,16 +10,22 @@ resource :session, only: [:new, :create, :destroy]
 ####
 
 namespace :admin do
-  resources :professors
+  resources :professors do
+    get '/preferences' => 'professors#preferences'
+  end
   resources :offerings
   resources :courses
   resources :preferences
+  get '/' => 'admin#index'
 end
+
+
 
 resources :lectures
 
- get 'admin/' => 'admin#index'
+ 
  post 'admin/semester' => 'admin#semester'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

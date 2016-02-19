@@ -20,6 +20,7 @@
   end
 
   def show
+    #is this doing anything?
     @results = get_preference_bycourse(Offering.all)
   end
 
@@ -29,9 +30,9 @@
       @preference = Preference.new
 
       #this only select offerings of Major
-      @offering_major_selector = Offering.joins(:course).order("courses.name ASC").select{|offering|Course.find(offering.course_id).kind =='major'}
+      @offering_major_selector = Offering.where(semester: current_semester).joins(:course).order("courses.name ASC").select{|offering|Course.find(offering.course_id).kind =='major'}
       #this only select offerings of Service
-      @offering_service_selector = Offering.joins(:course).order("courses.name ASC").select{|offering|Course.find(offering.course_id).kind == 'service'}
+      @offering_service_selector = Offering.where(semester: current_semester).joins(:course).order("courses.name ASC").select{|offering|Course.find(offering.course_id).kind == 'service'}
       #Create the major selector array for dropdown form
       @offering_major_selector = @offering_major_selector.map do|offering|
           [Course.find(offering.course_id).name + " " + offering.letter, offering.id]

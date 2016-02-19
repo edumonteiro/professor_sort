@@ -14,6 +14,12 @@
     <%= f.label "status" %><br>
     <%= f.select :status, options_for_select([["active","active"],["partial","partial"],["license","license"]],@professor.status)%>
   </div>
+  <%if current_professor.id == Ourconfig.find_by(name: "super_user_id").value.to_i %>
+    <div class="field">
+      <%= f.label "kind" %><br>
+      <%= f.select :kind, options_for_select([["professor","professor"],["admin","admin"]],@professor.kind)%>
+    </div>
+  <%end%>
   <div class="actions">
     <%= f.submit %>
   </div>
