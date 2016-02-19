@@ -6,42 +6,40 @@ class ApplicationController < ActionController::Base
   helper_method :current_semester
 
   def current_semester
-
-      @current_semester = nil
-      semester = Ourconfig.find_by(name: "semester").value.split("/")
-      case semester[0]
-      when "0"
-        @current_semester = Date.new(semester[1].to_i,1)
-      when "1"
-        @current_semester = Date.new(semester[1].to_i,3)
-      when "2"
-        @current_semester = Date.new(semester[1].to_i,8)
-      end
-      #binding.pry
-      @current_semester        
+    @current_semester = nil
+    semester = Ourconfig.find_by(name: "semester").value.split("/")
+    case semester[0]
+    when "0"
+      @current_semester = Date.new(semester[1].to_i,1)
+    when "1"
+      @current_semester = Date.new(semester[1].to_i,3)
+    when "2"
+      @current_semester = Date.new(semester[1].to_i,8)
     end
+    @current_semester        
+  end
 
-    protected
+  protected
 
-    def restrict_access
-      if !current_professor
-        flash[:alert] = "You must log in."
-        redirect_to new_session_path
-      end
+  def restrict_access
+    if !current_professor
+      flash[:alert] = "You must log in."
+      redirect_to new_session_path
     end
+  end
 
-    def restrict_admin_access
-      if current_professor.kind != 'admin'
-        flash[:alert] = "You must be an Admin to access here."
-        redirect_to professor_path
-      end
+  def restrict_admin_access
+    if current_professor.kind != 'admin'
+      flash[:alert] = "You must be an Admin to access here."
+      redirect_to professor_path
     end
+  end
 
 
-    def current_professor
-      @current_professor ||= Professor.find(session[:professor_id]) if session[:professor_id]
-    end
+  def current_professor
+    @current_professor ||= Professor.find(session[:professor_id]) if session[:professor_id]
+  end
 
-    helper_method :current_professor
+  helper_method :current_professor
 
 end
