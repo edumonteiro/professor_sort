@@ -11,6 +11,14 @@
     <%= f.text_field :email %>
   </div>
   <div class="field">
+    <%= f.label "Password" %><br>
+    <%= f.password_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label "Password Confirmation" %><br>
+    <%= f.password_field :password_confirmtion %>
+  </div>
+  <div class="field">
     <%= f.label "status" %><br>
     <%= f.select :status, options_for_select([["active","active"],["partial","partial"],["license","license"]],@professor.status)%>
   </div>

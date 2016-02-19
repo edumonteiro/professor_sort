@@ -56,3 +56,7 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<button>
+  <%= link_to 'Notify All Professors', admin_notify_all_path, method: :post, data: {confirm: 'Are you sure?'} %>
+</button>
