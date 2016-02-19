@@ -14,11 +14,11 @@ namespace :admin do
   resources :offerings
   resources :courses
   resources :preferences
+  get '/' => 'admin#index'
 end
 
 resources :lectures
 
- get 'admin/' => 'admin#index'
  post 'admin/semester' => 'admin#semester'
 
   # The priority is based upon order of creation: first created -> highest priority.
