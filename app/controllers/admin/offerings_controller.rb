@@ -6,7 +6,7 @@ class Admin::OfferingsController < ApplicationController
 
 
   def index
-    @offerings = Offering.joins(:course).order("courses.name ASC")
+    @offerings = Offering.where(semester: current_semester)
     @new_offering = Offering.new
   end
 
@@ -16,6 +16,7 @@ class Admin::OfferingsController < ApplicationController
 
   def create
     @offering = Offering.new(offering_params)
+    @offering.semester = current_semester
     @offering.save
     redirect_to admin_offerings_path
   end
