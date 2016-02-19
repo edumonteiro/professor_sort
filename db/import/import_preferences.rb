@@ -4,7 +4,7 @@ Professor.all.each do |professor|
 end
 service_offering_ids = []
 major_offering_ids = []
-Offering.where(semester: Date.new(2015,8)).each do |offering|
+Offering.where(semester: Date.new(2016,3)).each do |offering|
   if offering.course.kind == "major"
     major_offering_ids.push(offering.id)
   else
@@ -21,7 +21,7 @@ professors_ids.each do |prof_id|
   preference.first_service = service_offering_ids.sample
   preference.second_service = service_offering_ids.sample
   preference.third_service = service_offering_ids.sample
-  preference.semester = Date.new(2015,8)
+  preference.semester = Date.new(2016,3)
   preference.save
 end
 
