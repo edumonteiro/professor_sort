@@ -1,5 +1,7 @@
 class PreferencesController < ApplicationController
+  
   before_filter :restrict_access
+
 
   def index
     @preferences = current_professor.preferences
@@ -15,6 +17,10 @@ class PreferencesController < ApplicationController
     else
       render :index
     end
+  end
+
+  def show
+    @results = get_preference_bycourse(Offering.all)
   end
 
   def new

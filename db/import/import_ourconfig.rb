@@ -9,6 +9,7 @@ aa.value = "secret"
 aa.save
 
 aa = Ourconfig.new
-aa.name = "semester"
-aa.value = "1/2016"
+aa.name = "professor_code"
+aa.value = "whatever"
 aa.save
+
