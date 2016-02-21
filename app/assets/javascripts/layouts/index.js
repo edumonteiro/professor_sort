@@ -3,10 +3,8 @@ $(go);
 $(document).on('page:load',go);
 
 function go(){
-  if ($('.alert strong').text() === 'Success!'){
-    var msg = new SpeechSynthesisUtterance('Successfully updated to' + $('.jumbotron h2 strong').text());
+    var msg = new SpeechSynthesisUtterance($('.alert-success div').text());
     msg.rate = 1;
-    msg.lang = "es-ES";
+    msg.lang = "en-EN";
     window.speechSynthesis.speak(msg);
-  }
 }

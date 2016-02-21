@@ -1,7 +1,7 @@
 <%@preferences.each do |hash|%>
   <p><%=hash[:course_name]%> <%=hash[:letter]%></p>
-  <p><%=decode_semester(hash[:semester])%></p>
-  <p><%=Offering.decode_schedule(hash[:schedule])%></p>
+  <p>Semester: <%=decode_semester(hash[:semester])%></p>
+  <p>Schedule: <%=Offering.decode_schedule(hash[:schedule])%></p>
   <p>First choice of <%=hash[:first_choice_of].map { |id| Professor.find(id).name  }%></p>
   <p>Second choice of <%=hash[:second_choice_of].map { |id| Professor.find(id).name  }%></p>
   <p>Third choice of <%=hash[:third_choice_of].map { |id| Professor.find(id).name  }%></p>
