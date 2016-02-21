@@ -1,4 +1,7 @@
-$(document).on('page:load',function(){
+$(go);
+$(document).on('page:load',go);
+
+function go(){
 
   $('.edit_offering').submit(function(event){
     // event.preventDefault();
@@ -11,8 +14,4 @@ $(document).on('page:load',function(){
     }
     $('#offering_schedule').val(sched.join(""));
   });
-
-
-
-});
-
+}

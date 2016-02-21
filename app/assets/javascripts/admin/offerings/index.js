@@ -1,4 +1,8 @@
-$(function(){
+$(go);
+
+$(document).on('page:load',go);
+
+function go(){
   $('#offering_course_id').change(function(){
     $('#timeforms').empty();
     $.ajax({
@@ -25,8 +29,5 @@ $(function(){
     $('#offering_schedule').val(sched.join(""));
 
   });
-
-  
-
-});
+}
 
