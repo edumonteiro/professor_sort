@@ -46,6 +46,19 @@
     end
   end
 
+  def edit
+    @offerings = Offering.where(semester: current_semester)
+    @preference = Preference.find(params[:id])
+    @offering_major_selector = Offering.where(semester: current_semester).joins(:course).order("courses.name ASC").select{|offering|Course.find(offering.course_id).kind =='major'}
+    @offering_service_selector = Offering.where(semester: current_semester).joins(:course).order("courses.name ASC").select{|offering|Course.find(offering.course_id).kind == 'service'}
+    @offering_major_selector = @offering_major_selector.map do|offering|
+      [Course.find(offering.course_id).name + " " + offering.letter, offering.id]
+    end
+    @offering_service_selector = @offering_service_selector.map do|offering|
+      [Course.find(offering.course_id).name + " " + offering.letter, offering.id]
+    end
+  end
+
   def destroy
     @preference = Preference.find(params[:id])
     @preference.destroy

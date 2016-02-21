@@ -33,3 +33,10 @@ footer{
   margin-top: 2%;
   border-radius: 3px;
 }
+
+#onePreference {
+  display: table;
+  padding: 2px; 
+  border: 2px groove;
+  margin-bottom: 1%;
+}
