@@ -1,15 +1,19 @@
-<h1>Admin dashboard</h1>
-
-<h2>Current semester <%=Ourconfig.find_by(name: "semester").value%></h2>
-<div>
-  <h2>Set a semester</h2>
-  <%= form_tag(admin_semester_path,method: 'post') do %> 
-    <input type="text" name='semester'/>
-    <input type="submit" value="submit"/>
-  <% end %>
+<div class="jumbotron">
+  <h2>Current semester <strong><%=Ourconfig.find_by(name: "semester").value%></strong></h2>
+  <div class="panel panel-info">
+    <div class="panel-heading">Set a Semester</div>
+    <div class="panel-body">
+      <%= form_tag(admin_semester_path,method: 'post') do %> 
+        <input id="setSemester" type="text" name='semester' data-title="Use format => 1/2016" data-content="1: first semester; 2: second semester; 3: thrid semester and / follow by the year (only allow within 3 semesters)" data-placement="top" data-trigger="focus"/>
+        <input type="submit" value="Go"/>
+      <% end %>
+    </div>
+  </div>
+  <p>
+    <a class="btn btn-primary btn-lg" href="/admin/offerings" role="button">Offerings</a>
+    <a class="btn btn-primary btn-lg" href="/admin/professors" role="button">Professors</a>
+    <a class="btn btn-primary btn-lg" href="/admin/courses" role="button">Courses</a>
+  </p>
 </div>
 
-<br>
-<a href="/admin/offerings">Offerings</a>
-<a href="/admin/professors">Professors</a>
-<a href="/admin/courses">Courses</a>
+
