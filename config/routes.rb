@@ -21,8 +21,6 @@ namespace :admin do
   post '/notify_all' => 'dashboard#notify_all'
 end
 
-
-
 resources :lectures
 
 

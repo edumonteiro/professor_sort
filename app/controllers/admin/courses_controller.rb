@@ -1,4 +1,6 @@
 class Admin::CoursesController < ApplicationController
+  include Admin::PreferencesHelper
+
   before_filter :restrict_access
   before_filter :restrict_admin_access
 
@@ -24,6 +26,7 @@ class Admin::CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
+    @preferences = display_report(course_preferences_reporter,@course.name)
     #since the course has just a few informations no view for show was created and
     #this json part was created to define the number of credits and customize the offering schedule form
     respond_to do |format|

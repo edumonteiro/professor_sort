@@ -15,5 +15,7 @@ task "get_data" do
   require './db/import/import_professors.rb'
   require './db/import/import_preferences.rb'
   require './db/import/import_ourconfig.rb'
+  require './db/import/import_offerings_2015.rb'
+  require './db/import/import_preferences_2015.rb'
 end
 

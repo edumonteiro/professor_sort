@@ -1,3 +1,4 @@
+
 $(go);
 $(document).on('page:load',go);
 
