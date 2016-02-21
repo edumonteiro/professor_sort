@@ -1,0 +1,31 @@
+
+nav.navbar {
+  position:fixed;
+  margin-top:-5%;
+  width:100%;
+}
+
+#yieldcontent{
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+#top-name { 
+  width: 20%;
+  margin: 0 auto;
+  margin-top: 2%;
+}
+
+footer{
+  background:#ffab62;
+  width:100%;
+  position:fixed;
+  bottom:0;
+  left:0;
+}
+
+#footer.name{
+  width: 50%;
+  margin: 0 auto;
+}
+

@@ -1,7 +1,9 @@
-$(setup);
-$(document).on("page:load", setup);
 
-function setup() {
+$(go);
+
+$(document).on('page:load',go);
+
+function go(){
   $('#offering_course_id').change(function(){
     $('#timeforms').empty();
     $.ajax({
@@ -28,8 +30,5 @@ function setup() {
     $('#offering_schedule').val(sched.join(""));
 
   });
-
-  
-
 }
 

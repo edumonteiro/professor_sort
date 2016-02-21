@@ -7,10 +7,16 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <% flash.each do |key, value| %>
-    <%= content_tag(:div, value) %>
-  <% end %>
-  <%= yield %>
-  <%= render 'layouts/footer' %>
+    <%= render 'layouts/navbar' %>
+    <div class='container' id="yieldcontent">
+      <% flash.each do |key, value| %>
+      <div class='alert alert-success'>
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Success!</strong><em> <%= value %></em>
+      </div>
+      <% end %>
+      <%= yield %>
+    </div>
+    <%= render 'layouts/footer' %>
 </body>
 </html>
