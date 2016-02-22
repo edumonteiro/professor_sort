@@ -4,6 +4,7 @@ root to: 'sessions#new'
 ###
 resource :professor, only: [:new, :create, :edit, :update, :show] do
   resources :preferences
+  get '/lectures' => 'professors#lectures'
 end
 
 resource :session, only: [:new, :create, :destroy]

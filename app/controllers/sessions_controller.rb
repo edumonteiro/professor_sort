@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       if professor.kind == 'admin'
         redirect_to admin_path, notice: "Welcome to the admin page, #{professor.name}"
       else
-        redirect_to professor_path,notice: "Welcome back, #{professor.name}!"
+        redirect_to professor_preferences_path,notice: "Welcome back, #{professor.name}!"
       end
     else
       render :new

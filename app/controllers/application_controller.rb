@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  helper_method :current_semester
 
   def current_semester
     @current_semester = nil
@@ -30,7 +29,7 @@ class ApplicationController < ActionController::Base
 
   def restrict_admin_access
     if current_professor.kind != 'admin'
-      flash[:alert] = "You must be an Admin to access here."
+      flash[:alert] = "You must be an Admin to access the admin pages."
       redirect_to professor_path
     end
   end
@@ -41,5 +40,6 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :current_professor
+  helper_method :current_semester
 
 end
