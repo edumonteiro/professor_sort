@@ -1,8 +1,6 @@
-<h1>Admin::Professors#index</h1>
-<p>Find me in app/views/admin/professors/index.html.erb</p>
+<h1>List of All Professors</h1>
 
-
-<table>
+<table class='table table-bordered'>
   <thead>
     <tr>
       <th>Name</th>
@@ -26,20 +24,28 @@
   </tbody>
 </table>
 
-<%= form_for [:admin, @new_professor] do |f| %>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+
+<div class="panel-default well">
+  <div class="panel-heading">
+    <h2 class="panel-title">Add a new Professor</h2>
   </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
+  <div class="panel-body">
+    <%= form_for([:admin, @new_professor], html: {class:'form-inline'}) do |f| %>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.text_field :email, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.label "status" %>
+        <%= f.select :status, options_for_select([["active","active"],["partial","partial"],["license","license"]]), :prompt => "Please select" %>
+      </div>
+      <div class="actions form-group">
+        <%= f.submit 'Add',:class => 'btn btn-info'  %>
+      </div>
+    <% end %>
   </div>
-  <div class="field">
-    <%= f.label "status" %><br>
-    <%= f.select :status, options_for_select([["active","active"],["partial","partial"],["license","license"]]), :prompt => "Please select" %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

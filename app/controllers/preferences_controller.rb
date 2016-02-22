@@ -10,12 +10,21 @@
 
   def create
     @professor = current_professor
+    @offerings = Offering.where(semester: current_semester)
     @preference = @professor.preferences.build(preference_params)
     @preference.semester = current_semester
+    @offering_major_selector = Offering.where(semester: current_semester).joins(:course).order("courses.name ASC").select{|offering|Course.find(offering.course_id).kind =='major'}
+    @offering_service_selector = Offering.where(semester: current_semester).joins(:course).order("courses.name ASC").select{|offering|Course.find(offering.course_id).kind == 'service'}
+    @offering_major_selector = @offering_major_selector.map do|offering|
+          [Course.find(offering.course_id).name + " " + offering.letter, offering.id]
+    end
+    @offering_service_selector = @offering_service_selector.map do|offering|
+          [Course.find(offering.course_id).name + " " + offering.letter, offering.id]
+    end
     if @preference.save
       redirect_to professor_preferences_path
     else
-      render :index
+      render :new
     end
   end
 
@@ -43,6 +52,40 @@
       end
     else
       redirect_to professor_preferences_path
+    end
+  end
+
+  def edit
+    @preference = Preference.find(params[:id])
+    @offerings = Offering.where(semester: @preference.semester)
+    @offering_major_selector = Offering.where(semester: @preference.semester).joins(:course).order("courses.name ASC").select{|offering|Course.find(offering.course_id).kind =='major'}
+    @offering_service_selector = Offering.where(semester: @preference.semester).joins(:course).order("courses.name ASC").select{|offering|Course.find(offering.course_id).kind == 'service'}
+    @offering_major_selector = @offering_major_selector.map do|offering|
+      [Course.find(offering.course_id).name + " " + offering.letter, offering.id]
+    end
+    @offering_service_selector = @offering_service_selector.map do|offering|
+      [Course.find(offering.course_id).name + " " + offering.letter, offering.id]
+    end
+  end
+
+  def update
+    @preference = current_professor.preferences.find(params[:id])
+    @offerings = Offering.where(semester: @preference.semester)
+
+    @offering_major_selector = Offering.where(semester: @preference.semester).joins(:course).order("courses.name ASC").select{|offering|Course.find(offering.course_id).kind =='major'}
+    @offering_service_selector = Offering.where(semester: @preference.semester).joins(:course).order("courses.name ASC").select{|offering|Course.find(offering.course_id).kind == 'service'}
+    @offering_major_selector = @offering_major_selector.map do|offering|
+      [Course.find(offering.course_id).name + " " + offering.letter, offering.id]
+    end
+    @offering_service_selector = @offering_service_selector.map do|offering|
+      [Course.find(offering.course_id).name + " " + offering.letter, offering.id]
+    end
+
+    if @preference.update(preference_params)
+      redirect_to professor_preferences_path
+      flash[:alert] = "Your preferences had been updated!"
+    else
+      render 'edit'
     end
   end
 

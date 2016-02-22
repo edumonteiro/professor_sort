@@ -1,4 +1,6 @@
-
+a{
+  text-decoration: none !important;
+}
 nav.navbar {
   position:fixed;
   margin-top:-5%;
@@ -32,4 +34,15 @@ footer{
 #timeforms{
   margin-top: 2%;
   border-radius: 3px;
+}
+
+#onePreference {
+  display: table;
+  padding: 2px; 
+  border: 2px groove;
+  margin-bottom: 1%;
+}
+
+#preferenceComment {
+  height: 100px;
 }

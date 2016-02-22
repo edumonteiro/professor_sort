@@ -17,7 +17,7 @@ class Admin::DashboardController < ApplicationController
         flash[:alert] = "Failed due to some unexpected error"
       end
     else
-      flash[:alert] = "You need to update the semester of the format 1/2012"
+      flash[:alert] = "You need to update the semester in the format of either 1 or 2 or 3, follow by backslash then year."
     end
       redirect_to admin_path
   end

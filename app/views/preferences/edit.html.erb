@@ -13,7 +13,8 @@
 
 <h1 style="display: inline">Offering List
 </h1>
-<h2 style="display: inline">current semester: <%= current_semester%></h2>
+<h2 style="display: inline; color: blue">Editing Semester: <%= @preference.semester%></h2>
+
 
 <table class="table table-condensed">
   <thead>
@@ -24,7 +25,7 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-<% if !@offerings.empty? %>
+
   <tbody>
     <% @offerings.each do |offering| %>
       <tr>
@@ -34,16 +35,15 @@
       </tr>
     <% end %>
   </tbody>
-<% end %>
 </table>
 
 
 <div class="panel-default well">
   <div class="panel-heading">
-    <h2 class='panel-title'>Based on the above offering list, please choose your preferences: </h2>
+    <h2 class='panel-title'>Please update your preferences: </h2>
 </div>
   <div class="panel-body">
-    <%= form_for [:professor, @preference], url: {action: "create"}, :html => {class: 'form-horizontal'} do |f| %>
+    <%= form_for [:professor, @preference], url: {action: "update"}, :html => {class: 'form-horizontal'} do |f| %>
       <div class='row'>
         <div class='col-md-6'>
           <div class='form-group'>
@@ -96,7 +96,7 @@
           </div>
         </div>
       </div>
-        <%= f.submit 'Create', :class => 'col-md-2 btn btn-primary' %>
+        <%= f.submit 'Update', :class => 'col-md-2 btn btn-primary' %>
     <% end %> 
   </div>
 </div>

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-
+root to: 'sessions#new'
 ###
 resource :professor, only: [:new, :create, :edit, :update, :show] do
   resources :preferences

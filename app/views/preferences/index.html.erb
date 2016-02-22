@@ -1,6 +1,6 @@
-<h1>List of Preferences</h1>
+<h2>List of Preferences</h2>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>First Major</th>
@@ -18,7 +18,7 @@
   </thead>
   <tbody>
     <% @preferences.each do |preference| %>
-      <tr>
+    <tr>
         <td><%= Course.find(Offering.find(preference.first_major).course_id).name%> <em><%=Offering.find(preference.first_major).letter%></em></td>
         <td><%= Course.find(Offering.find(preference.second_major).course_id).name %> <em><%=Offering.find(preference.second_major).letter%></em></td>
         <td><%= Course.find(Offering.find(preference.third_major).course_id).name %> <em><%=Offering.find(preference.third_major).letter%></em></td>
@@ -36,8 +36,9 @@
     <% end %>
   </tbody>
 </table>
+<div class="bg-success" id="onePreference"><h4><strong>You can only submit <u>ONE</u> preference each semester.</strong></h4></div>
 <% if @addable %>
-  <button><%= link_to 'New Preference', new_professor_preference_path %></button>
+  <%= link_to 'New Preference', new_professor_preference_path,class: 'btn btn-primary' %>
 <% end %>
 
 
