@@ -1,0 +1,10 @@
+<h1>Courses</h1>
+
+<% major = @results.first %>
+<% major.each do |hash| %>
+  <h3><%= hash[:course]%> <%= hash[:letter]%></h3>
+  <h5><%= decode_semester(hash[:semester])%></h5>
+  <p>First choice of <%= hash[:first_choice_of] %></p>
+  <p>Second choice of <%= hash[:second_choice_of]%></p>
+  <p>Third choice of <%= hash[:third_choice_of]%></p>
+<%end%>

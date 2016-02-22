@@ -3,6 +3,7 @@ module Admin::PreferencesHelper
 
   def get_info(offering_id)
     offering = Offering.find(offering_id)
+    semester = offering.semester
     name = offering.course.name
     pref1 = Preference.where(first_major: offering_id)
     prof_first_choice = []
@@ -21,6 +22,8 @@ module Admin::PreferencesHelper
     end
     result = {}
     result[:course] = name
+    result[:letter] = offering.letter
+    result[:semester] = semester
     result[:first_choice_of] = prof_first_choice
     result[:second_choice_of] = prof_second_choice
     result[:third_choice_of] = prof_third_choice

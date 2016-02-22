@@ -15,7 +15,10 @@ namespace :admin do
   end
   resources :offerings
   resources :courses
-  resources :preferences
+  resource :preferences, only: [:index] do
+    get '/professors' => 'preferences#professors'
+    get '/offerings' => 'preferences#offerings'
+  end
   get '/' => 'dashboard#index'
   post '/semester' => 'dashboard#semester'
   post '/notify_all' => 'dashboard#notify_all'
