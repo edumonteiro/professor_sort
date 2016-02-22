@@ -3,3 +3,4 @@ Preference.destroy_all
 Professor.destroy_all
 Offering.destroy_all
 Course.destroy_all
+Lecture.destroy_all
