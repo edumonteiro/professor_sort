@@ -28,10 +28,11 @@
         <td><%= preference.ttc_proposal_1 %></td>
         <td><%= preference.ttc_proposal_2 %></td>
         <td><%= preference.ttc_proposal_3 %></td>
-        <td><%= preference.semester %></td>
-
-        <td><%= link_to 'Edit', edit_professor_preference_path(preference) %></td>
-        <td><%= link_to 'Destroy', professor_preference_path(preference), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= decode_semester(preference.semester) %></td>
+        <%if preference.semester == current_semester%>
+          <td><%= link_to 'Edit', edit_professor_preference_path(preference) %></td>
+          <td><%= link_to 'Destroy', professor_preference_path(preference), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
       </tr>
     <% end %>
   </tbody>
