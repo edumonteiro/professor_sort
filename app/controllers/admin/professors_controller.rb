@@ -45,6 +45,10 @@ class Admin::ProfessorsController < ApplicationController
     @preferences = Professor.find(params[:professor_id]).preferences
   end
 
+  def lectures
+    @lectures = Professor.find(params[:professor_id]).lectures
+  end
+
    private
   
   def professor_params
