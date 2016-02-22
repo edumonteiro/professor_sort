@@ -1,4 +1,6 @@
-
+a{
+  text-decoration: none !important;
+}
 nav.navbar {
   position:fixed;
   margin-top:-5%;
@@ -39,4 +41,8 @@ footer{
   padding: 2px; 
   border: 2px groove;
   margin-bottom: 1%;
+}
+
+#preferenceComment {
+  height: 100px;
 }
