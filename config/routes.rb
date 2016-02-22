@@ -4,6 +4,7 @@ root to: 'sessions#new'
 ###
 resource :professor, only: [:new, :create, :edit, :update, :show] do
   resources :preferences
+  get '/lectures' => 'professors#lectures'
 end
 
 resource :session, only: [:new, :create, :destroy]
@@ -15,7 +16,10 @@ namespace :admin do
   end
   resources :offerings
   resources :courses
-  resources :preferences
+  resource :preferences, only: [:index] do
+    get '/professors' => 'preferences#professors'
+    get '/offerings' => 'preferences#offerings'
+  end
   get '/' => 'dashboard#index'
   post '/semester' => 'dashboard#semester'
   post '/notify_all' => 'dashboard#notify_all'

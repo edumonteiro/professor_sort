@@ -36,6 +36,7 @@ class ProfessorsController < ApplicationController
   def show
     restrict_access
     @professor = current_professor
+    redirect_to professor_preferences_path
   end
 
   def edit
@@ -51,6 +52,10 @@ class ProfessorsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def lectures
+    
   end
 
   protected
