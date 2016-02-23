@@ -14,7 +14,8 @@ class Admin::PreferencesController < ApplicationController
 
 
   def offerings
-     @results = get_preference_bycourse(Offering.where(semester: current_semester))
+    @results = get_preference_bycourse(Offering.where(semester: current_semester))
+    @preferences = Preference.where(semester: current_semester)
   end
 
 end
