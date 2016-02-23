@@ -1,1 +1,10 @@
-<h1> here goes all the past lectures he had taught</h1>
+<% if !@lectures.empty? %>
+  <h1><%=@lectures.first.professor.name%> Lectures</h1>
+  <%@lectures.each do |lecture|%>
+    <h3><%=decode_semester(lecture.semester)%></h3>
+    <p><%=lecture.course.name%></p>
+    <p><%=Offering.decode_schedule(lecture.schedule)%></p>
+  <%end%>
+<% else %>
+  <h1>You have no lecture yet.</h1>
+<% end %>

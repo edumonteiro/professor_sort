@@ -8,4 +8,5 @@
   <p>First preference for service: <strong><%= Offering.find(preference.first_service).course.name%></strong> <%= Offering.decode_schedule(Offering.find(preference.first_service).schedule)%></p>
   <p>Second preference for service: <strong><%=Offering.find(preference.second_service).course.name%></strong> <%= Offering.decode_schedule(Offering.find(preference.second_service).schedule)%></p>
   <p>Third preference for service: <strong><%=Offering.find(preference.third_service).course.name%></strong> <%= Offering.decode_schedule(Offering.find(preference.third_service).schedule)%></p>
+  <p>Comments:  <%preference.comments%></p>
 <%end%>

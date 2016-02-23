@@ -1,0 +1,6 @@
+<h1><%=@course.name%></h1>
+<%@lectures.each do |lecture|%>
+  <p><%=decode_semester(lecture.semester)%></p>
+  <p><%=lecture.professor.name%></p>
+  <p><%=Offering.decode_schedule(lecture.schedule)%></p>
+<%end%>

@@ -30,3 +30,5 @@ Please feel free to use a different markup language if you do not plan to run
 
 
 Grup service offerings by schedule instead of letters
+
+Added lectures to professors and to admin/professors admin/courses need to add buttons to get there

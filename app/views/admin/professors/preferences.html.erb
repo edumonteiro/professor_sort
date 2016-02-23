@@ -8,6 +8,7 @@
     <p>First preference for service <strong><%= Offering.find(preference.first_service).course.name%></strong></p>
     <p>Second preference for service <strong><%=Offering.find(preference.second_service).course.name%></strong></p>
     <p>Third preference for service <strong><%=Offering.find(preference.third_service).course.name%></strong></p>
+    <p>Comments:  <%preference.comments%></p>
   <%end%>
 <% else %>
   <h1>You have no preference yet.</h1>

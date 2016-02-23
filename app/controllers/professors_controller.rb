@@ -55,7 +55,8 @@ class ProfessorsController < ApplicationController
   end
 
   def lectures
-    
+    @professor = current_professor
+    @lectures = @professor.lectures    
   end
 
   protected
