@@ -15,7 +15,7 @@
   <tbody>
     <% @offerings.each do |offering| %>
       <tr>
-        <td><%= offering.course.name %></td>
+        <td><%= link_to offering.course.name,edit_admin_offering_path(offering) %></td>
         <td><%= offering.letter %></td>
         <td><%= Offering.decode_schedule(offering.schedule) %></td>
         <%if offering.professor_id%>
@@ -23,8 +23,9 @@
         <%else%>
           <td style="color:red;">To be assigned</td>
         <%end%>
-        <td><%= link_to 'Edit', edit_admin_offering_path(offering) %></td>
-        <td><%= link_to 'Destroy', admin_offering_path(offering), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if offering.professor_id %>
+          <td><%= link_to 'Remove professor',admin_offering_resetprof_path(offering),method: :put %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

@@ -27,7 +27,6 @@ class Admin::OfferingsController < ApplicationController
   end
 
   def edit
-        
   end
   
   def update
@@ -44,6 +43,18 @@ class Admin::OfferingsController < ApplicationController
       object.save
     end
     redirect_to admin_offerings_path
+  end
+
+  def resetprof
+    @offering = Offering.find(params[:offering_id])
+    @offering.professor_id = nil
+    if @offering.save
+      flash[:alert] = "Successfully reset the professor."
+      redirect_to admin_offerings_path
+    else
+      flash[:alert] = "Failed due to some unexpected error."
+      redirect_to admin_offerings_path
+    end
   end
 
 

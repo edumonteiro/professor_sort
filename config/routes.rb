@@ -16,7 +16,9 @@ namespace :admin do
     get '/preferences' => 'professors#preferences'
     get '/lectures' => 'professors#lectures'
   end
-  resources :offerings
+  resources :offerings do
+    put '/resetprof' => 'offerings#resetprof'
+  end
   resources :courses do
     get '/preferences' => 'courses#preferences'
     get '/lectures' => 'courses#lectures'
