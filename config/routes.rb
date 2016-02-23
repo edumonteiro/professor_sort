@@ -16,7 +16,10 @@ namespace :admin do
     get '/lectures' => 'professors#lectures'
   end
   resources :offerings
-  resources :courses
+  resources :courses do
+    get '/preferences' => 'courses#preferences'
+    get '/lectures' => 'courses#lectures'
+  end
   resource :preferences, only: [:index] do
     get '/professors' => 'preferences#professors'
     get '/offerings' => 'preferences#offerings'

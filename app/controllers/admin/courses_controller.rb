@@ -26,7 +26,6 @@ class Admin::CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
-    @preferences = display_report(course_preferences_reporter,@course.name)
     #since the course has just a few informations no view for show was created and
     #this json part was created to define the number of credits and customize the offering schedule form
     respond_to do |format|
@@ -51,6 +50,15 @@ class Admin::CoursesController < ApplicationController
     redirect_to admin_courses_path
   end
 
+  def preferences
+    @course = Course.find(params[:course_id])
+    @preferences = display_report(course_preferences_reporter,@course.name)
+  end
+
+  def lectures
+    @course = Course.find(params[:course_id])
+    @lectures = @course.lectures
+  end
 
   private
   

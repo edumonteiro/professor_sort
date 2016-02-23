@@ -1,8 +1,7 @@
 <div class='container'>
-  <h2 class='col-md-offset-4'>Courses</h2>
-
-<% major = @results.first %>
-<% major.each do |hash| %>
+  <h2 class='col-md-offset-4'>Major</h2>
+  <% major = @results.first %>
+  <% major.each do |hash| %>
   <div class="panel-primary well">
     <div class="panel-heading">
       <h3><%= hash[:course]%> <%= hash[:letter]%></h3>
@@ -35,4 +34,43 @@
       </div>
     </div>
   </div>
-<%end%>
+<% end %>
+
+
+  <h2 class='col-md-offset-4'>Service</h2>
+    <%data = group_service_preferences_by_schedule(@results[1])%>
+    <%data.each do |service_course|%>
+    <div class="panel-primary well">
+      <div class="panel-heading">
+        <h3><%= service_course[:course]%></h3>
+        <h5><%=Offering.decode_schedule(service_course[:schedule])%></h5>
+      </div>
+      <div class='panel-body'>
+        <div class='row'>
+          <div class='col-md-2 btn btn-info'>First choice</div>
+          <div class='col-md-10'>
+              <% service_course[:first_choice_of].each do |professor_name| %>
+                <strong class='btn btn-default'><%= professor_name %></strong>
+            <% end %> 
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-md-2 btn btn-info'>Second choice</div>
+          <div class='col-md-10'>
+              <% service_course[:second_choice_of].each do |professor_name| %>
+                <strong class='btn btn-default'><%= professor_name %></strong>
+              <% end %>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-md-2 btn btn-info'>Third choice</div>
+          <div class='col-md-10'>
+              <% service_course[:third_choice_of].each do |professor_name| %>
+                <strong class='btn btn-default'><%= professor_name %></strong>
+              <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

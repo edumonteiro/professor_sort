@@ -1,35 +1,56 @@
 module Admin::PreferencesHelper
 
-
+#based on offering_id returns a hash with all information about that offering
   def get_info(offering_id)
     offering = Offering.find(offering_id)
-    semester = offering.semester
     name = offering.course.name
-    pref1 = Preference.where(first_major: offering_id)
-    prof_first_choice = []
-    pref1.each do |preference|
-      prof_first_choice.push(preference.professor.name)
-    end
-    prof_second_choice = []
-    pref2 = Preference.where(second_major: offering_id)
-    pref2.each do |preference|
-      prof_second_choice.push(preference.professor.name)
-    end
-    prof_third_choice = []
-    pref3 = Preference.where(third_major: offering_id)
-    pref3.each do |preference|
-      prof_third_choice.push(preference.professor.name)
-    end
+    if offering.course.kind == "major"
+      pref1 = Preference.where(first_major: offering_id)
+      prof_first_choice = []
+      pref1.each do |preference|
+        prof_first_choice.push(preference.professor.name)
+      end
+      prof_second_choice = []
+      pref2 = Preference.where(second_major: offering_id)
+      pref2.each do |preference|
+        prof_second_choice.push(preference.professor.name)
+      end
+      prof_third_choice = []
+      pref3 = Preference.where(third_major: offering_id)
+      pref3.each do |preference|
+        prof_third_choice.push(preference.professor.name)
+      end      
+    else
+      pref1 = Preference.where(first_service: offering_id)
+      prof_first_choice = []
+      pref1.each do |preference|
+        prof_first_choice.push(preference.professor.name)
+      end
+      prof_second_choice = []
+      pref2 = Preference.where(second_service: offering_id)
+      pref2.each do |preference|
+        prof_second_choice.push(preference.professor.name)
+      end
+      prof_third_choice = []
+      pref3 = Preference.where(third_service: offering_id)
+
+
+      pref3.each do |preference|
+        prof_third_choice.push(preference.professor.name)
+      end       
+    end      
     result = {}
     result[:course] = name
     result[:letter] = offering.letter
-    result[:semester] = semester
+    result[:schedule] = offering.schedule
+    result[:semester] = offering.semester
     result[:first_choice_of] = prof_first_choice
     result[:second_choice_of] = prof_second_choice
     result[:third_choice_of] = prof_third_choice
     result
   end
 
+  #Creates arrays one for major and one for service of hashes with information about preferences
   def get_preference_bycourse(offerings)
     major_offering_ids = []
     service_offering_ids =[]
@@ -52,7 +73,7 @@ module Admin::PreferencesHelper
     organized
   end
 
-
+  #gets the history of preferences for every courses by every offering of that course
   def course_preferences_reporter
     result = []
     Course.all.each do |course|
@@ -77,7 +98,7 @@ module Admin::PreferencesHelper
     result
   end
 
-
+  #filters results returned by previous methods by a single course name
   def display_report(results,course)
     results.select {|hash| hash[:course_name] == course}
   end
@@ -93,6 +114,33 @@ module Admin::PreferencesHelper
       result = 2    
     end
     "#{result}/#{date_format.year}"
+  end
+
+
+  def group_service_preferences_by_schedule(results)
+    uniq_schedules = Course.joins("LEFT OUTER JOIN offerings ON courses.id=offerings.course_id").pluck(:schedule).uniq    
+    service_ids = Course.where(kind: "service").pluck(:id)
+    result = []
+    uniq_schedules.each do |schedule|
+      service_ids.each do |service_id|
+        hash = {}
+        hash[:first_choice_of] = []
+        hash[:second_choice_of] = []
+        hash[:third_choice_of] = []
+        group = results.select {|singular| singular[:course] == Course.find(service_id).name && singular[:schedule] == schedule }
+          group.each do |preference|
+            hash[:first_choice_of].concat(preference[:first_choice_of])
+            hash[:second_choice_of].concat(preference[:second_choice_of])
+            hash[:third_choice_of].concat(preference[:third_choice_of])
+            hash[:course] = preference[:course]
+            hash[:schedule] = preference[:schedule]            
+          end
+        result << hash
+      end
+    end
+  result
+  result = result.select {|x| x.has_key?(:course)}
+  result
   end
 
 end

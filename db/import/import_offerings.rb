@@ -119,7 +119,7 @@ aa.save
 aa = Offering.new()
 aa.course_id = Course.find_by(name: "Applied Statistics").id
 aa.letter = "A"
-aa.schedule = "a7c7d7"
+aa.schedule = "a7c7e7"
 aa.semester = Date.new(2016,3)
 aa.save
 
@@ -147,7 +147,7 @@ aa.save
 aa = Offering.new()
 aa.course_id = Course.find_by(name: "Applied Statistics").id
 aa.letter = "E"
-aa.schedule = "a7c7d7"
+aa.schedule = "a7c7e7"
 aa.semester = Date.new(2016,3)
 aa.save
 
@@ -196,7 +196,7 @@ aa.save
 aa = Offering.new()
 aa.course_id = Course.find_by(name: "Applied Statistics").id
 aa.letter = "L"
-aa.schedule = "a7c7d7"
+aa.schedule = "a7c7e7"
 aa.semester = Date.new(2016,3)
 aa.save
 
