@@ -1,6 +1,5 @@
 class Copypref < ActiveRecord::Base
   belongs_to :professor
-  belongs_to :offering
 
 
   def self.populate_to_copyprefs

@@ -13,6 +13,13 @@
 
 ActiveRecord::Schema.define(version: 20160223200147) do
 
+  create_table "configurations", force: :cascade do |t|
+    t.string   "name"
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "copyprefs", force: :cascade do |t|
     t.integer  "professor_id"
     t.integer  "offering_id"
