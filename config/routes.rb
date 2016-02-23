@@ -11,6 +11,7 @@ resource :session, only: [:new, :create, :destroy]
 ####
 
 namespace :admin do
+  get '/offerings/clear' => 'offerings#clear_assignment'
   resources :professors do
     get '/preferences' => 'professors#preferences'
     get '/lectures' => 'professors#lectures'

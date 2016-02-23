@@ -38,6 +38,14 @@ class Admin::OfferingsController < ApplicationController
     end
   end
 
+  def clear_assignment
+    Offering.where(semester: current_semester).each do |object|
+      object.professor_id = nil
+      object.save
+    end
+    redirect_to admin_offerings_path
+  end
+
 
 private
   # Use callbacks to share common setup or constraints between actions.
