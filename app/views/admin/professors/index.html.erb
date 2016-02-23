@@ -12,13 +12,11 @@
   <tbody>
     <% @professors.each do |professor| %>
       <tr>
-        <td><%= professor.name %></td>
+        <td><%= link_to professor.name, edit_admin_professor_path(professor)  %></td>
         <td><%= professor.email %></td>
         <td><%= professor.status %></td>
        
-        <td><%= link_to 'Preferences', admin_professor_preferences_path(professor) %></td>
-        <td><%= link_to 'Edit', edit_admin_professor_path(professor) %></td>
-        <td><%= link_to 'Destroy', admin_professor_path(professor), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Preferences History', admin_professor_preferences_path(professor) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -49,3 +47,4 @@
     <% end %>
   </div>
 </div>
+

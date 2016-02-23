@@ -1,19 +1,20 @@
-<h1>Edit <%=@course.name%></h1>
-
-<%= form_for [:admin, @course] do |f| %>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :credits %><br>
-    <%= f.text_field :credits %>
-  </div>
-  <div class="field">
-    <%= f.label "Type" %><br>
-    <%= f.select :kind, options_for_select([["major","major"],["service","service"]],@course.kind)  %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+<div class='well col-md-offset-3' style='width: 30%'>
+  <%= form_for [:admin, @course] do |f| %>
+    <div class="form-group">
+      <%= f.label :name %><br>
+      <%= f.text_field :name, placeholder: 'name',class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :credits %><br>
+      <%= f.text_field :credits, placeholder: 'number of credits', class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label "Type" %><br>
+      <%= f.select :kind, options_for_select([["major","major"],["service","service"]],@course.kind)  %>
+    </div>
+    <div class='actions form-group'>
+      <%= f.submit 'submit',class: 'btn btn-default' %>
+    </div>
+  <% end %>
+  <%= link_to 'Destroy', admin_course_path(@course), {method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' ,stysle: "color:blue"} %>
+</div>
