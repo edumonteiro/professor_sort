@@ -3,7 +3,7 @@ module ApplicationHelper
   
 
   def get_professors_and_offerings_for_assigning
-    offering_to_be_assigned = Offering.where(semester: current_semester).pluck(:id)
+    offering_to_be_assigned = Offering.where(semester: current_semester).where(professor_id: nil).pluck(:id)
     professor_to_be_assigned = Professor.all.map  do |professor|
       case professor.status
       when "active"
@@ -15,6 +15,10 @@ module ApplicationHelper
       end
     end
     professor_to_be_assigned = professor_to_be_assigned.flatten
+    professors_already_assigned = Offering.where(semester: Date.new(2016,3)).where("professor_id IS NOT NULL").pluck(:professor_id)
+    professors_already_assigned.each do |x|
+      professor_to_be_assigned.delete_at(professor_to_be_assigned.find_index(x))
+    end
     result = {offerings: offering_to_be_assigned, professors: professor_to_be_assigned}
     result
   end
