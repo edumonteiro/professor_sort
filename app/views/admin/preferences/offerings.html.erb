@@ -1,18 +1,18 @@
 <div class='container'>
   <h2 class='col-md-offset-4'>Major</h2>
-  <% major = @results.first %>
+  <% major = @results[0] %>
   <% major.each do |hash| %>
   <div class="panel-primary well">
     <div class="panel-heading">
       <h3><%= hash[:course]%> <%= hash[:letter]%></h3>
-      <h5><%= decode_semester(hash[:semester])%></h5>
+      <h5><%= Offering.decode_schedule(hash[:schedule])%></h5>
     </div>
     <div class='panel-body'>
       <div class='row'>
         <div class='col-md-2 btn btn-info'>First choice</div>
         <div class='col-md-10'>
             <% hash[:first_choice_of].each do |professor_name| %>
-              <strong class='btn btn-default'><%= professor_name %></strong>
+              <button class='btn btn-default' data-toggle='modal' data-target='#<%=professor_name.gsub(/\W/,'_')%>'><%= professor_name %></button>
           <% end %> 
         </div>
       </div>
@@ -20,7 +20,7 @@
         <div class='col-md-2 btn btn-info'>Second choice</div>
         <div class='col-md-10'>
             <% hash[:second_choice_of].each do |professor_name| %>
-              <strong class='btn btn-default'><%= professor_name %></strong>
+              <button class='btn btn-default' data-toggle='modal' data-target='#<%=professor_name.gsub(/\W/,'_')%>'><%= professor_name %></button>
             <% end %>
         </div>
       </div>
@@ -28,7 +28,7 @@
         <div class='col-md-2 btn btn-info'>Third choice</div>
         <div class='col-md-10'>
             <% hash[:third_choice_of].each do |professor_name| %>
-              <strong class='btn btn-default'><%= professor_name %></strong>
+              <button class='btn btn-default' data-toggle='modal' data-target='#<%=professor_name.gsub(/\W/,'_')%>'><%= professor_name %></button>
             <% end %>
         </div>
       </div>
@@ -50,7 +50,7 @@
           <div class='col-md-2 btn btn-info'>First choice</div>
           <div class='col-md-10'>
               <% service_course[:first_choice_of].each do |professor_name| %>
-                <strong class='btn btn-default'><%= professor_name %></strong>
+                <button class='btn btn-default' data-toggle='modal' data-target='#<%=professor_name.gsub(/\W/,'_')%>'><%= professor_name %></button>
             <% end %> 
           </div>
         </div>
@@ -58,7 +58,7 @@
           <div class='col-md-2 btn btn-info'>Second choice</div>
           <div class='col-md-10'>
               <% service_course[:second_choice_of].each do |professor_name| %>
-                <strong class='btn btn-default'><%= professor_name %></strong>
+                <button class='btn btn-default' data-toggle='modal' data-target='#<%=professor_name.gsub(/\W/,'_')%>'><%= professor_name %></button>
               <% end %>
           </div>
         </div>
@@ -66,7 +66,7 @@
           <div class='col-md-2 btn btn-info'>Third choice</div>
           <div class='col-md-10'>
               <% service_course[:third_choice_of].each do |professor_name| %>
-                <strong class='btn btn-default'><%= professor_name %></strong>
+                <button class='btn btn-default' data-toggle='modal' data-target='#<%=professor_name.gsub(/\W/,'_')%>'><%= professor_name %></button>
               <% end %>
           </div>
         </div>
@@ -74,3 +74,30 @@
     </div>
   <% end %>
 </div>
+
+
+
+
+  <% @preferences.each do |preference| %>
+    <div class="panel-primary modal fade" id='<%=preference.professor.name.gsub(/\W/,'_')%>' tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+      <div class='modal-dialog' role='document' style="width: 70%">
+      <div class='modal-content'>
+      <div class="panel-heading" id='exampleModalLabel'>
+        <h3 class='panel-title'><%= preference.professor.name%></h3><h4><%=decode_semester(preference.semester)%></h4>
+      </div>
+      <div class='panel-body'>
+        <h5 class='col-md-4'>First preference for major:</h5><h5 class='col-md-3'><strong><%= Offering.find(preference.first_major).course.name%></strong></h5><h5 class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.first_major).schedule)%></h5>
+        <h5 class='col-md-4'>Second preference for major:</h5><h5 class='col-md-3'><strong><%=Offering.find(preference.second_major).course.name%></strong></h5><h5 class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.second_major).schedule)%></h5>
+        <h5 class='col-md-4'>Third preference for major:</h5><h5 class='col-md-3'><strong><%=Offering.find(preference.third_major).course.name%></strong></h5><h5 class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.third_major).schedule)%></h5>
+        <h5 class='col-md-4'>First preference for service:</h5><h5 class='col-md-3'><strong><%= Offering.find(preference.first_service).course.name%></strong></h5><h5 class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.first_service).schedule)%></h5>
+        <h5 class='col-md-4'>Second preference for service:</h5><h5 class='col-md-3'><strong><%=Offering.find(preference.second_service).course.name%></strong></h5><h5 class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.second_service).schedule)%></h5>
+        <h5 class='col-md-4'>Third preference for service:</h5><h5 class='col-md-3'><strong><%=Offering.find(preference.third_service).course.name%></strong></h5><h5 class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.third_service).schedule)%></h5>
+      </div>
+    </div>
+    </div>
+    </div>
+  <%end%>
+
+
+
+

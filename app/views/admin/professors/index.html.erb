@@ -1,6 +1,6 @@
 <h1>List of All Professors</h1>
 
-<table class='table table-bordered'>
+<table class='table table-hover'>
   <thead>
     <tr>
       <th>Name</th>
@@ -15,8 +15,9 @@
         <td><%= link_to professor.name, edit_admin_professor_path(professor)  %></td>
         <td><%= professor.email %></td>
         <td><%= professor.status %></td>
-       
         <td><%= link_to 'Preferences History', admin_professor_preferences_path(professor) %></td>
+        <td><%= link_to 'Past Lecture History', admin_professor_lectures_path(professor) %>
+        </td>
       </tr>
     <% end %>
   </tbody>

@@ -1,6 +1,6 @@
 <h1>List of Courses</h1>
 
-<table class='table table-bordered'>
+<table class='table table-hover'>
   <thead>
     <tr>
       <th>Name</th>
@@ -16,7 +16,7 @@
         <td><%= link_to course.name, edit_admin_course_path(course) %></td>
         <td><%= course.credits %></td>
         <td><%= course.kind %></td>
-        <td><%=  link_to 'Preferences History', admin_course_path(course) %></td>
+        <td><%=  link_to 'Preferences History', admin_course_preferences_path(course) %></td>
       </tr>
     <% end %>
   </tbody>
