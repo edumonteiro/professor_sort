@@ -11,14 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160218192622) do
+ActiveRecord::Schema.define(version: 20160223200147) do
 
-  create_table "configurations", force: :cascade do |t|
-    t.string   "name"
-    t.string   "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "copyprefs", force: :cascade do |t|
+    t.integer  "professor_id"
+    t.integer  "offering_id"
+    t.string   "first_major"
+    t.string   "second_major"
+    t.string   "third_major"
+    t.string   "first_service"
+    t.string   "second_service"
+    t.string   "third_service"
+    t.string   "ttc_proposal_1"
+    t.string   "ttc_proposal_2"
+    t.string   "ttc_proposal_3"
+    t.text     "comments"
+    t.date     "semester"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
+
+  add_index "copyprefs", ["offering_id"], name: "index_copyprefs_on_offering_id"
+  add_index "copyprefs", ["professor_id"], name: "index_copyprefs_on_professor_id"
 
   create_table "courses", force: :cascade do |t|
     t.string   "name"
