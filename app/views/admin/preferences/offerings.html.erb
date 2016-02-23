@@ -8,3 +8,16 @@
   <p>Second choice of <%= hash[:second_choice_of]%></p>
   <p>Third choice of <%= hash[:third_choice_of]%></p>
 <%end%>
+
+<h1>Service</h1>
+
+<%data = group_service_preferences_by_schedule(@results[1])%>
+<%data.each do |service_course|%>
+<br>
+<h3><%=service_course[:course]%></h3>
+<p><%=Offering.decode_schedule(service_course[:schedule])%></p>
+<p>First preference of: <%=service_course[:first_choice_of]%></p>
+<p>Second preference of: <%=service_course[:second_choice_of]%></p>
+<p>Third preference of: <%=service_course[:third_choice_of]%></p>
+<br>
+<%end%>
