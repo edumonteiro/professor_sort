@@ -20,6 +20,31 @@ class ApplicationController < ActionController::Base
     # Solution.current_semester
   end
 
+  def past_semester
+    case current_semester.month
+    when 1
+      @past_semester = Date.new(current_semester.year-1,8)
+    when 3
+      @past_semester = Date.new(current_semester.year-1,8)
+    when 8
+      @past_semester = Date.new(current_semester.year,3)      
+    end
+    @past_semester
+  end
+
+  def twoago_semester
+    case past_semester.month
+    when 1
+      @twoago_semester = Date.new(past_semester.year-1,8)
+    when 3
+      @twoago_semester = Date.new(past_semester.year-1,8)
+    when 8
+      @twoago_semester = Date.new(past_semester.year,3)      
+    end
+    @twoago_semester
+
+  end
+
   protected
 
   def restrict_access
@@ -43,5 +68,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_professor
   helper_method :current_semester
+  helper_method :past_semester
+  helper_method :twoago_semester
 
 end
