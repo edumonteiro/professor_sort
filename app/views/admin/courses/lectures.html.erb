@@ -1,6 +1,14 @@
-<h1><%=@course.name%></h1>
-<%@lectures.each do |lecture|%>
-  <p><%=decode_semester(lecture.semester)%></p>
-  <p><%=lecture.professor.name%></p>
-  <p><%=Offering.decode_schedule(lecture.schedule)%></p>
-<%end%>
+<div class='container'>
+  <h2><%=@course.name%></h2>
+  <%@lectures.each do |lecture|%>
+      <div class="panel-info well">
+        <div class="panel-heading">
+          <h3 class='panel-title'><%=lecture.professor.name%></h3>
+        </div>
+        <div class='panel-body'>
+          <h4><%=decode_semester(lecture.semester)%></h4>
+          <h4><%=Offering.decode_schedule(lecture.schedule)%></h4>
+        </div>
+      </div>
+  <%end%>
+</div>

@@ -16,7 +16,13 @@
         <% end %>
       </div>
       <div class="col-md-6">
-          <h4 id="top-name"><%= link_to 'EasySchedule', new_session_path, method: :get %></h4>
+        <% if current_professor && current_professor.kind == 'admin'%> 
+          <h4 id="top-name"><%= link_to 'EasySchedule',admin_path, method: :get %></h4>
+        <% elsif %>
+          <h4 id="top-name"><%= link_to 'EasySchedule',professor_preferences_path, method: :get %></h4>
+        <% else %>
+          <h4 id="top-name"><%= link_to 'EasySchedule',new_session_path, method: :get %></h4>
+        <% end %>
       </div>
       <div class="col-md-3" style="margin-top: 2%">
         <ul class="nav nav-tabs">
