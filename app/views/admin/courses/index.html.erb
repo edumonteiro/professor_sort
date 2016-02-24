@@ -17,6 +17,7 @@
         <td><%= course.credits %></td>
         <td><%= course.kind %></td>
         <td><%=  link_to 'Preferences History', admin_course_preferences_path(course) %></td>
+        <td><%=  link_to 'Lectures History', admin_course_lectures_path(course) %></td>
       </tr>
     <% end %>
   </tbody>
