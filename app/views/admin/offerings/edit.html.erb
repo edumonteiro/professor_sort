@@ -6,14 +6,22 @@
     <%i=0%>
     <div class='form-group'>
       <div id="timeforms">
+      <% schedule = Offering.decode_schedule(@offering.schedule).split(' ') %>
+      <% coded_schedule = @offering.schedule.split('') %>
         <%(@offering.course.credits / 2).times do%>
           <div class='col-md-2' style="margin-top: 1%">Day</div>
           <div class='col-md-10'>
-            <select class='form-control' id=<%="day#{i}"%>><option value='a'>Monday</option><option value='b'>Tuesday</option><option value='c'>Wednesday</option><option value='d'>Thursday</option><option value='e'>Friday</option></select>
+            <select class='form-control' id=<%="day#{i}"%> >
+              <option value='<%= coded_schedule.shift %>' ><%=schedule.shift%></option>
+              <option value='a'>Monday</option><option value='b'>Tuesday</option><option value='c'>Wednesday</option><option value='d'>Thursday</option><option value='e'>Friday</option>
+            </select>
           </div>
           <div class='col-md-2' style="margin-top: 1%">Time</div>
           <div class='col-md-10'>
-            <select class='form-control'id=<%="time#{i}"%>><option value='1'>8-10</option><option value='2'>10-12</option><option value='3'>12-14</option><option value='4'>14-16</option><option value='5'>16-18</option><option value='6'>18-20</option><option value='7'>19-21</option><option value='8'>21-23</option></select>
+            <select class='form-control' id=<%="time#{i}"%>>
+            <option value='<%= coded_schedule.shift %>' ><%=schedule.shift%></option>
+              <option value='1'>8-10</option><option value='2'>10-12</option><option value='3'>12-14</option><option value='4'>14-16</option><option value='5'>16-18</option><option value='6'>18-20</option><option value='7'>19-21</option><option value='8'>21-23</option>
+            </select>
           </div>
           <%i+=1%>
         <%end%>

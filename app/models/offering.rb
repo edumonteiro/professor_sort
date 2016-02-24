@@ -38,6 +38,4 @@ class Offering < ActiveRecord::Base
     result.join(" ") 
   end
 
-
-
 end
