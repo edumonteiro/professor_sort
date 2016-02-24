@@ -1,6 +1,6 @@
 
 <h5>Current Semester: <%= decode_semester(current_semester) %></h5>
-<table class='table table-hover'>
+<table class='table table-hover'  id='admin_offering_table'>
   <caption><h4>Offerings Listing</h4></caption>
   <thead>
     <tr>
@@ -14,9 +14,15 @@
 
   <tbody>
     <% @offerings.each do |offering| %>
-      <tr>
+      <% if offering.professor && offering.professor.offerings.where(semester: current_semester).count == 2 %>
+        <tr class='bg-success'>
+      <% elsif offering.professor && offering.professor.offerings.where(semester: current_semester).count == 1 %>
+        <tr class='bg-info'>
+      <% else %>
+        <tr>
+      <% end %>
         <td><%= link_to offering.course.name,edit_admin_offering_path(offering) %></td>
-        <td><%= offering.letter %></td>
+        <td id='offering_table_letter'><%= offering.letter %></td>
         <td><%= Offering.decode_schedule(offering.schedule) %></td>
         <%if offering.professor_id%>
           <td><%= offering.professor.name %></td>
@@ -63,6 +69,10 @@
   </div>
 </div>
 
-
-  <%= link_to 'Notify All Professors (email each professor)', admin_notify_all_path, method: :post, data: {confirm: 'Are you sure?'},class: 'btn btn-warning col-md-4 col-md-offset-4'  %>
-  <%= link_to 'Remove all professors', admin_offerings_clear_path, class: 'btn btn-warning col-md-4 col-md-offset-4' %>
+<div class='row'>
+  <%= link_to 'Notify All Professors (email each professor)', admin_notify_all_path, method: :post, data: {confirm: 'Are you sure?'},class: 'btn btn-warning col-md-4 col-md-offset-1'  %>
+</div>
+<div class='row'>
+  <%= link_to 'Remove all professors', admin_offerings_clear_path, class: 'btn btn-danger col-md-4 col-md-offset-1', data: {confirm: 'Are you sure?'} %>
+</div>
+  <%= link_to 'Magic GO!', '#' , method: :post, data: {confirm: 'Ready?'},class: 'btn btn-primary col-md-3 col-md-offset-3',style: 'padding:25px;margin-left:60%;margin-top:-6%;height:70px;'  %>
