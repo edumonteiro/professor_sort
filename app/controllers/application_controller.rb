@@ -5,45 +5,34 @@ class ApplicationController < ActionController::Base
  
 
 
-  def current_semester
-    @current_semester = nil
-    semester = Ourconfig.find_by(name: "semester").value.split("/")
-    case semester[0]
-    when "0"
-      @current_semester = Date.new(semester[1].to_i,1)
-    when "1"
-      @current_semester = Date.new(semester[1].to_i,3)
-    when "2"
-      @current_semester = Date.new(semester[1].to_i,8)
-    end
-    @current_semester        
-    # Solution.current_semester
+  def current_semester       
+    Magic.current_semester
   end
 
-  def past_semester
-    case current_semester.month
-    when 1
-      @past_semester = Date.new(current_semester.year-1,8)
-    when 3
-      @past_semester = Date.new(current_semester.year-1,8)
-    when 8
-      @past_semester = Date.new(current_semester.year,3)      
-    end
-    @past_semester
-  end
+  # def past_semester
+  #   case current_semester.month
+  #   when 1
+  #     @past_semester = Date.new(current_semester.year-1,8)
+  #   when 3
+  #     @past_semester = Date.new(current_semester.year-1,8)
+  #   when 8
+  #     @past_semester = Date.new(current_semester.year,3)      
+  #   end
+  #   @past_semester
+  # end
 
-  def twoago_semester
-    case past_semester.month
-    when 1
-      @twoago_semester = Date.new(past_semester.year-1,8)
-    when 3
-      @twoago_semester = Date.new(past_semester.year-1,8)
-    when 8
-      @twoago_semester = Date.new(past_semester.year,3)      
-    end
-    @twoago_semester
+  # def twoago_semester
+  #   case past_semester.month
+  #   when 1
+  #     @twoago_semester = Date.new(past_semester.year-1,8)
+  #   when 3
+  #     @twoago_semester = Date.new(past_semester.year-1,8)
+  #   when 8
+  #     @twoago_semester = Date.new(past_semester.year,3)      
+  #   end
+  #   @twoago_semester
 
-  end
+  # end
 
   protected
 

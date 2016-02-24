@@ -11,6 +11,7 @@ resource :session, only: [:new, :create, :destroy]
 ####
 
 namespace :admin do
+  get '/offerings/domagic' => 'offerings#domagic'
   get '/offerings/clear' => 'offerings#clear_assignment'
   resources :professors do
     get '/preferences' => 'professors#preferences'
@@ -30,6 +31,8 @@ namespace :admin do
   get '/' => 'dashboard#index'
   post '/semester' => 'dashboard#semester'
   post '/notify_all' => 'dashboard#notify_all'
+
+
 end
 
 resources :lectures
