@@ -52,20 +52,49 @@ module ApplicationHelper
     end
   end
 
+  def schedule_conflict?(schedule1,schedule2)
+    schedule1.gsub!(/[67]/,'z')
+    schedule2.gsub!(/[67]/,'z')
+    arr1 = []
+    i = 0
+    (schedule1.length / 2).times do
+      arr1 << schedule1.slice(i,2)
+      i += 2
+    end
+    arr2 = []
+    j = 0
+    (schedule2.length / 2).times do
+      arr2 << schedule2.slice(j,2)
+      j += 2
+    end
+    arr1 & arr2 != [] 
+  end
+
+
   #this method will be responsible for doing the asignment 
   def do_magic
     Copypref.populate_to_copyprefs
     remove_preferences_from_unavailable_professor
-    # while (get_first_priority_assignable(get_professors_and_offerings_for_assigning[:offerings]) != [] ||
-    #       get_second_priority_assignable(get_professors_and_offerings_for_assigning[:offerings]) != [] ||
-    #       get_third_priority_assignable(get_professors_and_offerings_for_assigning[:offerings]) != [])
-    #   remove_preferences_from_unavailable_professor
+    while (get_first_priority_assignable(get_professors_and_offerings_for_assigning[:offerings]) != [] ||
+          get_second_priority_assignable(get_professors_and_offerings_for_assigning[:offerings]) != [] ||
+          get_third_priority_assignable(get_professors_and_offerings_for_assigning[:offerings]) != [])
+      remove_preferences_from_unavailable_professor
       easy_first = get_first_priority_assignable(get_professors_and_offerings_for_assigning[:offerings])
       easy_first.each do |offering_id|
         offering = Offering.find(offering_id)
         professor_id = Professor.find_by(name: get_info_copy(offering_id)[:first_choice_of][0]).id
         if Professor.find(professor_id).offerings.first
-          unless Professor.find(professor_id).offerings.first.schedule == offering.schedule
+          if schedule_conflict?(Professor.find(professor_id).offerings.first.schedule,offering.schedule)
+            if (offering.course.kind == 'major')
+              x = Professor.find(professor_id).copyprefs.first
+              x.first_major = nil
+              x.save
+            else
+              x = Professor.find(professor_id).copyprefs.first
+              x.first_service = nil
+              x.save
+            end
+          else
             offering.professor_id = professor_id
             offering.save         
           end
@@ -80,7 +109,17 @@ module ApplicationHelper
         offering = Offering.find(offering_id)
         professor_id = Professor.find_by(name: get_info_copy(offering_id)[:second_choice_of][0]).id
         if Professor.find(professor_id).offerings.first
-          unless Professor.find(professor_id).offerings.first.schedule == offering.schedule
+          if schedule_conflict?(Professor.find(professor_id).offerings.first.schedule,offering.schedule)
+            if (offering.course.kind == 'major')
+              x = Professor.find(professor_id).copyprefs.first
+              x.second_major = nil
+              x.save
+            else
+              x = Professor.find(professor_id).copyprefs.first
+              x.second_service = nil
+              x.save
+            end
+          else
             offering.professor_id = professor_id
             offering.save         
           end
@@ -95,7 +134,17 @@ module ApplicationHelper
         offering = Offering.find(offering_id)
         professor_id = Professor.find_by(name: get_info_copy(offering_id)[:third_choice_of][0]).id
         if Professor.find(professor_id).offerings.first
-          unless Professor.find(professor_id).offerings.first.schedule == offering.schedule
+          if schedule_conflict?(Professor.find(professor_id).offerings.first.schedule,offering.schedule)
+            if (offering.course.kind == 'major')
+              x = Professor.find(professor_id).copyprefs.first
+              x.third_major = nil
+              x.save
+            else
+              x = Professor.find(professor_id).copyprefs.first
+              x.third_service = nil
+              x.save
+            end
+          else
             offering.professor_id = professor_id
             offering.save         
           end
@@ -105,6 +154,6 @@ module ApplicationHelper
         end        
       end
     end    
-  # end
+  end
 
 end
