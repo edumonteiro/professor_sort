@@ -1,4 +1,3 @@
-<div class='container'>
   <h2 class='col-md-offset-4'>Professors</h2>
   <% @preferences.each do |preference| %>
     <div class="panel-primary well">
@@ -6,13 +5,24 @@
         <h3 class='panel-title'><%= preference.professor.name%></h3><h4><%=decode_semester(preference.semester)%></h4>
     </div>
       <div class='panel-body'>
-        <h5 class='col-md-4'>First preference for major:</h5><h5 class='col-md-3'><strong><%= Offering.find(preference.first_major).course.name%></strong></h5><h5 class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.first_major).schedule)%></h5>
-        <h5 class='col-md-4'>Second preference for major:</h5><h5 class='col-md-3'><strong><%=Offering.find(preference.second_major).course.name%></strong></h5><h5 class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.second_major).schedule)%></h5>
-        <h5 class='col-md-4'>Third preference for major:</h5><h5 class='col-md-3'><strong><%=Offering.find(preference.third_major).course.name%></strong></h5><h5 class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.third_major).schedule)%></h5>
-        <h5 class='col-md-4'>First preference for service:</h5><h5 class='col-md-3'><strong><%= Offering.find(preference.first_service).course.name%></strong></h5><h5 class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.first_service).schedule)%></h5>
-        <h5 class='col-md-4'>Second preference for service:</h5><h5 class='col-md-3'><strong><%=Offering.find(preference.second_service).course.name%></strong></h5><h5 class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.second_service).schedule)%></h5>
-        <h5 class='col-md-4'>Third preference for service:</h5><h5 class='col-md-3'><strong><%=Offering.find(preference.third_service).course.name%></strong></h5><h5 class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.third_service).schedule)%></h5>
+        <div class='row'>
+          <div class='col-md-4'>First preference for major:</div><div class='col-md-3'><strong><%= Offering.find(preference.first_major).course.name%></strong></div><div class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.first_major).schedule)%></div>
+        </div>
+        <div class='row'>
+        <div class='col-md-4'>Second preference for major:</div><div class='col-md-3'><strong><%=Offering.find(preference.second_major).course.name%></strong></div><div class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.second_major).schedule)%></div>
+        </div>
+        <div class='row'>
+        <div class='col-md-4'>Third preference for major:</div><div class='col-md-3'><strong><%=Offering.find(preference.third_major).course.name%></strong></div><div class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.third_major).schedule)%></div>
+        </div>
+        <div class='row'>
+        <div class='col-md-4'>First preference for service:</div><div class='col-md-3'><strong><%= Offering.find(preference.first_service).course.name%></strong></div><div class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.first_service).schedule)%></div>
+        </div>
+        <div class='row'>
+        <div class='col-md-4'>Second preference for service:</div><div class='col-md-3'><strong><%=Offering.find(preference.second_service).course.name%></strong></div><div class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.second_service).schedule)%></div>
+        </div>
+        <div class='row'>
+        <div class='col-md-4'>Third preference for service:</div><div class='col-md-3'><strong><%=Offering.find(preference.third_service).course.name%></strong></div><div class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.third_service).schedule)%></div>
+        </div>
       </div>
     </div>
   <%end%>
-</div>

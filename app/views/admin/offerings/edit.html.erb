@@ -1,25 +1,38 @@
-<h1>Edit <%=@offering.course.name%> <%=@offering.letter%></h1>
-<h3><%=Offering.decode_schedule(@offering.schedule)%></h3>
-<%= form_for [:admin, @offering] do |f| %>
-  <%i=0%>
-  <div id="timeforms">
-    <%(@offering.course.credits / 2).times do%>
-      <p>Day<select id=<%="day#{i}"%>><option value='a'>Monday</option><option value='b'>Tuesday</option><option value='c'>Wednesday</option><option value='d'>Thursday</option><option value='e'>Friday</option></select></p>
-
-      <p>Time<select id=<%="time#{i}"%>><option value='1'>8-10</option><option value='2'>10-12</option><option value='3'>12-14</option><option value='4'>14-16</option><option value='5'>16-18</option><option value='6'>18-20</option><option value='7'>19-21</option><option value='8'>21-23</option></select></p>
-      <%i+=1%>
-    <%end%>
-  </div>
-  <div class="field" style="display: none">
-    <%= f.label :schedule %><br>
-    <%= f.text_field :schedule %>
-  </div>
-  <div class="field">
-    <%= f.label :professor_id %><br>
-    <%= f.select :professor_id, options_for_select(Professor.pluck(:name, :id).push(["To be assigned",nil])), :prompt => "Please select" %>
-  </div>
-  
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+<div class='well col-md-offset-2' style='width: 50%'>
+  <h3>Edit <%=@offering.course.name%> <%=@offering.letter%></h3>
+  <h3>Currently:</h3>
+  <h4><%=Offering.decode_schedule(@offering.schedule)%></h4>
+  <%= form_for [:admin, @offering] do |f| %>
+    <%i=0%>
+    <div class='form-group'>
+      <div id="timeforms">
+        <%(@offering.course.credits / 2).times do%>
+          <div class='col-md-2' style="margin-top: 1%">Day</div>
+          <div class='col-md-10'>
+            <select class='form-control' id=<%="day#{i}"%>><option value='a'>Monday</option><option value='b'>Tuesday</option><option value='c'>Wednesday</option><option value='d'>Thursday</option><option value='e'>Friday</option></select>
+          </div>
+          <div class='col-md-2' style="margin-top: 1%">Time</div>
+          <div class='col-md-10'>
+            <select class='form-control'id=<%="time#{i}"%>><option value='1'>8-10</option><option value='2'>10-12</option><option value='3'>12-14</option><option value='4'>14-16</option><option value='5'>16-18</option><option value='6'>18-20</option><option value='7'>19-21</option><option value='8'>21-23</option></select>
+          </div>
+          <%i+=1%>
+        <%end%>
+      </div>
+    </div>
+    <div class="form-group" style="display: none">
+      <%= f.label :schedule %><br>
+      <%= f.text_field :schedule %>
+    </div>
+    <div class="form-group">
+      <div class='col-md-2' style="margin-top: 1%"><%= f.label :professor_id%></div>
+      <div class='col-md-10'>
+      <%= f.select :professor_id, options_for_select(Professor.pluck(:name, :id).push(["To be assigned",nil])), {prompt: "Please select"}, { class: 'form-control'}%>
+      </div>
+    </div>
+    
+    <div class="actions form-group">
+      <%= f.submit 'submit',class: 'btn btn-default' %>
+    </div>
+  <% end %>
+  <%= link_to 'Destroy', admin_offering_path(@offering), {method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' ,stysle: "color:blue"} %>
+</div>
