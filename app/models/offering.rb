@@ -37,5 +37,5 @@ class Offering < ActiveRecord::Base
     end
     result.join(" ") 
   end
-  
+
 end
