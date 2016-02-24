@@ -23,9 +23,11 @@
         <%else%>
           <td style="color:red;">To be assigned</td>
         <%end%>
+        <td>
         <% if offering.professor_id %>
-          <td><%= link_to 'Remove professor',admin_offering_resetprof_path(offering),method: :put %></td>
+          <%= link_to 'Remove professor',admin_offering_resetprof_path(offering),method: :put %>
         <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
