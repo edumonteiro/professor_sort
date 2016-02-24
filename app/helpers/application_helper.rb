@@ -1,7 +1,8 @@
 module ApplicationHelper
 
   
-
+  #Method to create a hash with array of available professors and offerings to be assigned
+  #The professor id apears in the array the nuber of classes he is available for teaching
   def get_professors_and_offerings_for_assigning
     offering_to_be_assigned = Offering.where(semester: current_semester).where(professor_id: nil).pluck(:id)
     professor_to_be_assigned = Professor.all.map  do |professor|
@@ -16,6 +17,7 @@ module ApplicationHelper
     end
     professor_to_be_assigned = professor_to_be_assigned.flatten
     professors_already_assigned = Offering.where(semester: Date.new(2016,3)).where("professor_id IS NOT NULL").pluck(:professor_id)
+    binding.pry
     professors_already_assigned.each do |x|
       professor_to_be_assigned.delete_at(professor_to_be_assigned.find_index(x))
     end
@@ -56,10 +58,10 @@ module ApplicationHelper
   def do_magic
     Copypref.populate_to_copyprefs
     remove_preferences_from_unavailable_professor
-    # while (get_first_priority_assignable(get_professors_and_offerings_for_assigning[:offerings]) != [] ||
-    #       get_second_priority_assignable(get_professors_and_offerings_for_assigning[:offerings]) != [] ||
-    #       get_third_priority_assignable(get_professors_and_offerings_for_assigning[:offerings]) != [])
-    #   remove_preferences_from_unavailable_professor
+    while (get_first_priority_assignable(get_professors_and_offerings_for_assigning[:offerings]) != [] ||
+          get_second_priority_assignable(get_professors_and_offerings_for_assigning[:offerings]) != [] ||
+          get_third_priority_assignable(get_professors_and_offerings_for_assigning[:offerings]) != [])
+      remove_preferences_from_unavailable_professor
       easy_first = get_first_priority_assignable(get_professors_and_offerings_for_assigning[:offerings])
       easy_first.each do |offering_id|
         offering = Offering.find(offering_id)
@@ -105,6 +107,6 @@ module ApplicationHelper
         end        
       end
     end    
-  # end
+  end
 
 end

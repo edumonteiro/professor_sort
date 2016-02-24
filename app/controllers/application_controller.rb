@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  helper_method :current_semester
+ 
 
 
   def current_semester
@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
       @current_semester = Date.new(semester[1].to_i,8)
     end
     @current_semester        
+    # Solution.current_semester
   end
 
   protected
@@ -41,5 +42,6 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :current_professor
+  helper_method :current_semester
 
 end
