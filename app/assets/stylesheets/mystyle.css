@@ -50,3 +50,195 @@ footer{
 .table-hover > tbody > tr:hover{
   background-color: aqua;
 }
+
+#admin_offering_table {
+    width: 100%;
+}
+
+#admin_offering_table thead,#admin_offering_table tbody,#admin_offering_table tr,#admin_offering_table td,#admin_offering_table th { display: block; }
+
+#admin_offering_table tr:after {
+  content: ' ';
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+
+#admin_offering_table thead th {
+  height: 30px;
+
+  /*text-align: left;*/
+}
+
+#admin_offering_table tbody {
+  height: 400px;
+  overflow-y: auto;
+  border-style:groove;
+}
+
+#admin_offering_table thead {
+  /* fallback */
+}
+
+
+#admin_offering_table tbody td:nth-child(1) {
+  width: 19.2%;
+  float: left;
+}
+
+#admin_offering_table thead th:nth-child(1){
+  width: 19.2%;
+  float: left;
+}
+
+#admin_offering_table tbody td:nth-child(2) {
+  width: 5%;
+  float: left;
+}
+
+#admin_offering_table thead th:nth-child(2){
+  width: 5%;
+  float: left;
+}
+
+#admin_offering_table tbody td:nth-child(3) {
+  width: 30%;
+  float: left;
+}
+
+#admin_offering_table thead th:nth-child(3){
+  width: 30%;
+  float: left;
+}
+
+#admin_offering_table tbody td:nth-child(4) {
+  width: 20%;
+  float: left;
+}
+
+#admin_offering_table thead th:nth-child(4){
+  width: 20%;
+  float: left;
+}
+
+#professor_offering_table {
+    width: 100%;
+}
+
+#professor_offering_table thead,#professor_offering_table tbody,#professor_offering_table tr,#professor_offering_table td,#professor_offering_table th { display: block; }
+
+#professor_offering_table tr:after {
+  content: ' ';
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+
+#professor_offering_table thead th {
+  height: 30px;
+
+  /*text-align: left;*/
+}
+
+#professor_offering_table tbody {
+  height: 400px;
+  overflow-y: auto;
+  border-style:groove;
+}
+
+#professor_offering_table thead {
+  /* fallback */
+}
+
+
+#professor_offering_table tbody td:nth-child(1) {
+  width: 30%;
+  float: left;
+}
+
+#professor_offering_table thead th:nth-child(1){
+  width: 30%;
+  float: left;
+}
+
+#professor_offering_table tbody td:nth-child(2) {
+  width: 10%;
+  float: left;
+}
+
+#professor_offering_table thead th:nth-child(2){
+  width: 10%;
+  float: left;
+}
+
+#professor_offering_table tbody td:nth-child(3) {
+  width: 30%;
+  float: left;
+}
+
+#professor_offering_table thead th:nth-child(3){
+  width: 30%;
+  float: left;
+}
+
+#edit_professor_offering_table {
+    width: 100%;
+}
+
+#edit_professor_offering_table thead,#edit_professor_offering_table tbody,#edit_professor_offering_table tr,#edit_professor_offering_table td,#edit_professor_offering_table th { display: block; }
+
+#edit_professor_offering_table tr:after {
+  content: ' ';
+  display: block;
+  visibility: hidden;
+  clear: both;
+}
+
+#edit_professor_offering_table thead th {
+  height: 30px;
+
+  /*text-align: left;*/
+}
+
+#edit_professor_offering_table tbody {
+  height: 400px;
+  overflow-y: auto;
+  border-style:groove;
+}
+
+#edit_professor_offering_table thead {
+  /* fallback */
+}
+
+
+#edit_professor_offering_table tbody td:nth-child(1) {
+  width: 30%;
+  float: left;
+}
+
+#edit_professor_offering_table thead th:nth-child(1){
+  width: 30%;
+  float: left;
+}
+
+#edit_professor_offering_table tbody td:nth-child(2) {
+  width: 10%;
+  float: left;
+}
+
+#edit_professor_offering_table thead th:nth-child(2){
+  width: 10%;
+  float: left;
+}
+
+#edit_professor_offering_table tbody td:nth-child(3) {
+  width: 30%;
+  float: left;
+}
+
+#edit_professor_offering_table thead th:nth-child(3){
+  width: 30%;
+  float: left;
+}
+
+

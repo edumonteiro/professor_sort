@@ -1,9 +1,15 @@
 <% if !@lectures.empty? %>
-  <h1><%=@lectures.first.professor.name%> Lectures</h1>
+  <h2><%=@lectures.first.professor.name%> Lectures</h2>
   <%@lectures.each do |lecture|%>
-    <h3><%=decode_semester(lecture.semester)%></h3>
-    <p><%=lecture.course.name%></p>
-    <p><%=Offering.decode_schedule(lecture.schedule)%></p>
+    <div class="panel-primary well">
+      <div class="panel-heading">
+        <h4><%=decode_semester(lecture.semester)%></h4>
+      </div>
+      <div class="panel-body">
+        <div><%=lecture.course.name%></div>
+        <div><%=Offering.decode_schedule(lecture.schedule)%></div>
+      </div>
+    </div>
   <%end%>
 <% else %>
   <h1>You have no lecture yet.</h1>

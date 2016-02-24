@@ -80,7 +80,7 @@
 
   <% @preferences.each do |preference| %>
     <div class="panel-primary modal fade" id='<%=preference.professor.name.gsub(/\W/,'_')%>' tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-      <div class='modal-dialog' role='document' style="width: 70%">
+      <div class='modal-dialog' role='document' style="width: 90%">
       <div class='modal-content'>
       <div class="panel-heading" id='exampleModalLabel'>
         <h3 class='panel-title'><%= preference.professor.name%></h3><h4><%=decode_semester(preference.semester)%></h4>
