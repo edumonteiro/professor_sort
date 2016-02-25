@@ -6,8 +6,12 @@ class Admin::OfferingsController < ApplicationController
 
 
   def index
+    @results = get_preference_bycourse(Offering.where(semester: current_semester))
+    @preferences = Preference.where(semester: current_semester)
+    ##stuff in here are hidden unless being clicked
     @offerings = Offering.where(semester: current_semester)
     @new_offering = Offering.new
+    #################
   end
 
   def new
