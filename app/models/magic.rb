@@ -203,7 +203,7 @@ class Magic
 
     #this method will be responsible for doing the asignment 
     def do_magic
-      Copypref.populate_to_copyprefs
+      # Copypref.populate_to_copyprefs
       remove_preferences_from_unavailable_professor
       #First Round will keep looping and assigning cases with on ties on the highest preferences available
       while (get_first_priority_assignable(get_professors_and_offerings_for_assigning[:offerings]) != [] ||
@@ -293,6 +293,7 @@ class Magic
         end
       end
       ###Second round, solving ties by past lectures
+      remove_preferences_from_unavailable_professor
       get_professors_and_offerings_for_assigning[:offerings].each do |offering|
         professor_id = was_prefered_and_tought_last_by(offering)
         if professor_id && get_professors_and_offerings_for_assigning[:professors].include?(professor_id)
@@ -307,6 +308,7 @@ class Magic
         end
       end
       ###Third round, solving ties by past preferences
+      remove_preferences_from_unavailable_professor
       get_professors_and_offerings_for_assigning[:offerings].each do |offering|
         professor_id = was_prefered_and_tought_last_by(offering)
         if professor_id && get_professors_and_offerings_for_assigning[:professors].include?(professor_id)
