@@ -1,6 +1,15 @@
-<div class='container'>
-  <h2 class='col-md-offset-4'>Major</h2>
-  <% major = @results[0] %>
+<div class='container' id="major_service_buttons">
+  <div class="row">
+    <button class='btn btn-primary col-md-1'>Major</button>
+  </div>
+  <div class="row">
+    <button class='btn btn-primary col-md-1'>Service</button>
+  </div>
+</div>
+
+<div class='container' id="main_container">
+  <h2 class='bg-success' style='text-align: center;color: orange'>Major</h2>
+  <% major = @results[0].sort_by!{|element| element[:course]} %>
   <% major.each do |hash| %>
   <div class="panel-primary well">
     <div class="panel-heading">
@@ -37,9 +46,9 @@
 <% end %>
 
 
-  <h2 class='col-md-offset-4'>Service</h2>
+  <h2 class='bg-success' style='text-align: center;color: orange'>Service</h2>
     <%data = group_service_preferences_by_schedule(@results[1])%>
-    <%data.each do |service_course|%>
+    <%data.sort_by!{|element| element[:course]}.each do |service_course|%>
     <div class="panel-primary well">
       <div class="panel-heading">
         <h3><%= service_course[:course]%></h3>
@@ -97,7 +106,5 @@
     </div>
     </div>
   <%end%>
-
-
 
 

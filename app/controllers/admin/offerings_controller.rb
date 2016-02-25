@@ -46,6 +46,7 @@ class Admin::OfferingsController < ApplicationController
       object.professor_id = nil
       object.save
     end
+      Copypref.populate_to_copyprefs
     redirect_to admin_offerings_path
   end
 

@@ -262,35 +262,6 @@ footer{
   float: left;
 }
 
-.signal {
-    border: 5px solid #333;
-    border-radius: 100%;
-    height: 300px;
-    left: 50%;
-    margin: -300px 0 0 -250px;
-    opacity: 0;
-    position: absolute;
-    top: 50%;
-    width: 300px;
- 
-    animation: pulsate 1s ease-out;
-    animation-iteration-count: infinite;
-}
-
-@keyframes pulsate {
-    0% {
-      transform: scale(.1);
-      opacity: 0.0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      transform: scale(1.2);
-      opacity: 0;
-    }
-}
-
 .loading {
   margin-top: 350px;
   margin-left: 350px;
@@ -319,4 +290,10 @@ footer{
     transform: translateY(-70px);
     animation-timing-function: ease-in;
   }
+}
+
+#major_service_buttons {
+  position: fixed;
+  margin-top: 100px;
+  margin-left: -100px;
 }
