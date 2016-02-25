@@ -1,5 +1,5 @@
   <h2 class='col-md-offset-4'>Professors</h2>
-  <% @preferences.each do |preference| %>
+  <% @preferences.to_a.sort_by{|element| element.professor.name}.each do |preference| %>
     <div class="panel-primary well">
       <div class="panel-heading">
         <h3 class='panel-title'><%= preference.professor.name%></h3><h4><%=decode_semester(preference.semester)%></h4>

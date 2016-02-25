@@ -18,7 +18,7 @@
     </thead>
 
     <tbody>
-      <% @offerings.each do |offering| %>
+      <% @offerings.to_a.sort_by!{|element| element.course.name}.each do |offering| %>
         <% if offering.professor && offering.professor.offerings.where(semester: current_semester).count == 2 %>
           <tr class='bg-success'>
         <% elsif offering.professor && offering.professor.offerings.where(semester: current_semester).count == 1 %>
