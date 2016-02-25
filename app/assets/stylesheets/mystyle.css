@@ -265,13 +265,13 @@ footer{
 .signal {
     border: 5px solid #333;
     border-radius: 100%;
-    height: 500px;
+    height: 300px;
     left: 50%;
     margin: -300px 0 0 -250px;
     opacity: 0;
     position: absolute;
     top: 50%;
-    width: 500px;
+    width: 300px;
  
     animation: pulsate 1s ease-out;
     animation-iteration-count: infinite;
@@ -289,4 +289,34 @@ footer{
       transform: scale(1.2);
       opacity: 0;
     }
+}
+
+.loading {
+  margin-top: 350px;
+  margin-left: 350px;
+  font-size: 80px;
+  font-family: "Comic Sans MS";
+  color: red;
+  
+}
+.ball {
+  
+  height: 250px;
+  width: 250px;
+  background-color: #e74c3c;
+  border-radius: 50%;
+  box-shadow:inset 6px -10px 50px -20px #000;
+  animation: loading 1s infinite;
+}
+
+
+@keyframes loading {
+  0%, 100% {
+    transform: translateY(0px);
+    animation-timing-function: ease-out;
+  }
+  50% {
+    transform: translateY(-70px);
+    animation-timing-function: ease-in;
+  }
 }
