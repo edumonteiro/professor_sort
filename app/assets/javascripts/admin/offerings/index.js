@@ -34,8 +34,9 @@ function go(){
   });
 
   $('#magicbutton').on('click',function(){
-    $('#needtohide').css(display,"hide");
-    $('.signal').css(display,"initial");
+    $('#needtohide').css("display","none");
+    $('.loading').css("display","initial");
+    
 
   })
 
