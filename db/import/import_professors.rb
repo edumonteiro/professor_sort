@@ -25,6 +25,7 @@ professor.name = "super"
 professor.email = "super"
 professor.kind = "admin"
 professor.status = "license"
+professor.password = "1234"
 professor.save
 
 aa = Ourconfig.new
