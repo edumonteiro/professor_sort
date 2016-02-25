@@ -16,31 +16,39 @@
         <% end %>
       </div>
       <div class="col-md-6">
-        <% if current_professor && current_professor.kind == 'admin'%> 
+        <% if current_professor && current_professor.kind == 'admin'%>
           <h4 id="top-name"><%= link_to 'EasySchedule',admin_path, method: :get %></h4>
-        <% elsif %>
+        <% elsif current_professor %>
           <h4 id="top-name"><%= link_to 'EasySchedule',professor_preferences_path, method: :get %></h4>
         <% else %>
           <h4 id="top-name"><%= link_to 'EasySchedule',new_session_path, method: :get %></h4>
         <% end %>
       </div>
       <div class="col-md-3" style="margin-top: 2%">
-        <ul class="nav nav-tabs">
-          <div class='col-md-4'>
+        <ul class="nav">
+          <% if current_professor %>
+          <div class='col-md-10'>
             <li role="presentation" class="active">
-              <h8><%= link_to 'Login', new_session_path, method: :get %></h8>
+              <h8><%= link_to current_professor.name, professor_preferences_path, method: :get %></h8>
             </li>
           </div>
-          <div class='col-md-4'>
+          <div class='col-md-2'>
             <li>
               <h8><%= link_to "Logout", session_path("current"), method: :delete %></h8>
             </li>
           </div>
-          <div class='col-md-4'>
+          <% else %>
+          <div class='col-md-6'>
+            <li role="presentation" class="active">
+              <h8><%= link_to 'Login', new_session_path, method: :get %></h8>
+            </li>
+          </div>
+          <div class='col-md-6'>
             <li>
               <h8><%= link_to "Signup", new_professor_path, method: :get %></h8>
             </li>
           </div>
+          <% end %>
         </ul>
       </div>
     </div> 

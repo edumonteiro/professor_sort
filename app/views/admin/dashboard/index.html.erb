@@ -1,11 +1,11 @@
 <div class="jumbotron">
-  <h2>Current semester <strong><%=Ourconfig.find_by(name: "semester").value%></strong></h2>
+  <h2>Current semester <strong><%= Ourconfig.find_by(name: "semester").value %></strong></h2>
   <div class="panel panel-info">
-    <div class="panel-heading">Set a Semester</div>
+    <div class="panel-heading">Enter a Semester</div>
     <div class="panel-body">
       <%= form_tag(admin_semester_path,method: 'post') do %> 
         <input id="setSemester" type="text" name='semester' data-title="Use format => 1/2016" data-content="0: summer semester; 1: first semester; 2: second semester and / follow by the year (only allow within 3 semesters)" data-placement="top" data-trigger="focus"/>
-        <input type="submit" value="Go"/>
+        <input type="submit" value="Set"/>
       <% end %>
     </div>
   </div>

@@ -291,3 +291,9 @@ footer{
     animation-timing-function: ease-in;
   }
 }
+
+#major_service_buttons {
+  position: fixed;
+  margin-top: 100px;
+  margin-left: -100px;
+}

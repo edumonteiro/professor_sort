@@ -22,7 +22,8 @@
           [Course.find(offering.course_id).name + " " + offering.letter, offering.id]
     end
     if @preference.save
-      populate_to_copyprefs
+      flash[:alert] = "Your preferences had been added!"
+      Copypref.populate_to_copyprefs
       redirect_to professor_preferences_path
     else
       render :new
@@ -84,7 +85,7 @@
 
     if @preference.update(preference_params)
       redirect_to professor_preferences_path
-      populate_to_copyprefs
+      Copypref.populate_to_copyprefs
       flash[:alert] = "Your preferences had been updated!"
     else
       render 'edit'
