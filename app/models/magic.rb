@@ -106,7 +106,9 @@ class Magic
       professor_to_be_assigned = professor_to_be_assigned.flatten
       professors_already_assigned = Offering.where(semester: Date.new(2016,3)).where("professor_id IS NOT NULL").pluck(:professor_id)
       professors_already_assigned.each do |x|
-        professor_to_be_assigned.delete_at(professor_to_be_assigned.find_index(x))
+        if professor_to_be_assigned.find_index(x)
+          professor_to_be_assigned.delete_at(professor_to_be_assigned.find_index(x))
+        end
       end
       result = {offerings: offering_to_be_assigned, professors: professor_to_be_assigned}
       result
@@ -201,6 +203,123 @@ class Magic
       nil
     end
 
+    def first_easy
+      easy_first = get_first_priority_assignable(get_professors_and_offerings_for_assigning[:offerings])
+      easy_first.each do |offering_id|
+        offering = Offering.find(offering_id)
+        professor_id = Professor.find_by(name: get_info_copy(offering_id)[:first_choice_of][0]).id
+        if get_professors_and_offerings_for_assigning[:professors].include?(professor_id)
+          if Professor.find(professor_id).offerings.where(semester: current_semester).first
+            if schedule_conflict?(Professor.find(professor_id).offerings.where(semester: current_semester).first.schedule,offering.schedule)
+              if (offering.course.kind == 'major')
+                x = Professor.find(professor_id).copyprefs.first
+                x.first_major = nil
+                x.save
+              else
+                x = Professor.find(professor_id).copyprefs.first
+                x.first_service = nil
+                x.save
+              end
+            else
+              offering.professor_id = professor_id
+              offering.save         
+            end
+          else
+            offering.professor_id = professor_id
+            offering.save  
+          end
+        end        
+      end      
+    end
+
+    def second_easy
+      easy_second = get_second_priority_assignable(get_professors_and_offerings_for_assigning[:offerings])
+      easy_second.each do |offering_id|
+        offering = Offering.find(offering_id)
+        professor_id = Professor.find_by(name: get_info_copy(offering_id)[:second_choice_of][0]).id
+        if get_professors_and_offerings_for_assigning[:professors].include?(professor_id)
+          if Professor.find(professor_id).offerings.where(semester: current_semester).first
+            if schedule_conflict?(Professor.find(professor_id).offerings.where(semester: current_semester).first.schedule,offering.schedule)
+              if (offering.course.kind == 'major')
+                x = Professor.find(professor_id).copyprefs.first
+                x.second_major = nil
+                x.save
+              else
+                x = Professor.find(professor_id).copyprefs.first
+                x.second_service = nil
+                x.save
+              end
+            else
+              offering.professor_id = professor_id
+              offering.save         
+            end
+          else
+            offering.professor_id = professor_id
+            offering.save  
+          end
+        end        
+      end
+    end
+
+    def third_easy
+      easy_third = get_third_priority_assignable(get_professors_and_offerings_for_assigning[:offerings])
+      easy_third.each do |offering_id|
+        offering = Offering.find(offering_id)
+        professor_id = Professor.find_by(name: get_info_copy(offering_id)[:third_choice_of][0]).id
+        if get_professors_and_offerings_for_assigning[:professors].include?(professor_id)
+          if Professor.find(professor_id).offerings.where(semester: current_semester).first
+            if schedule_conflict?(Professor.find(professor_id).offerings.where(semester: current_semester).first.schedule,offering.schedule)
+              if (offering.course.kind == 'major')
+                x = Professor.find(professor_id).copyprefs.first
+                x.third_major = nil
+                x.save
+              else
+                x = Professor.find(professor_id).copyprefs.first
+                x.third_service = nil
+                x.save
+              end
+            else
+              offering.professor_id = professor_id
+              offering.save         
+            end
+          else
+            offering.professor_id = professor_id
+            offering.save  
+          end
+        end        
+      end
+    end
+
+    def second_round_tie_braker_past_lectures
+      get_professors_and_offerings_for_assigning[:offerings].each do |offering|
+        professor_id = was_prefered_and_tought_last_by(offering)
+        if professor_id && get_professors_and_offerings_for_assigning[:professors].include?(professor_id)
+          if Professor.find(professor_id).offerings.where(semester: current_semester).first
+            unless schedule_conflict?(Professor.find(professor_id).offerings.where(semester: current_semester).first.schedule,Offering.find(offering).schedule)
+              assignable = Offering.find(offering)
+              assignable.professor_id = professor_id
+              assignable.save
+            end
+          end
+        end
+      end      
+    end
+
+    def third_round_tie_braker_past_preferences
+      get_professors_and_offerings_for_assigning[:offerings].each do |offering|
+        professor_id = was_prefered_now_and_previously_by(offering)
+        if professor_id && get_professors_and_offerings_for_assigning[:professors].include?(professor_id)
+          if Professor.find(professor_id).offerings.where(semester: current_semester).first
+            unless schedule_conflict?(Professor.find(professor_id).offerings.where(semester: current_semester).first.schedule,Offering.find(offering).schedule)
+              assignable = Offering.find(offering)
+              assignable.professor_id = professor_id
+              assignable.save        
+            end
+          end
+        end
+      end
+    end
+
     #this method will be responsible for doing the asignment 
     def do_magic
       Copypref.populate_to_copyprefs
@@ -211,115 +330,14 @@ class Magic
             get_third_priority_assignable(get_professors_and_offerings_for_assigning[:offerings]) != [])
         remove_preferences_from_unavailable_professor
         #Firstly the cases with no ties on the first preference
-        easy_first = get_first_priority_assignable(get_professors_and_offerings_for_assigning[:offerings])
-        easy_first.each do |offering_id|
-          offering = Offering.find(offering_id)
-          professor_id = Professor.find_by(name: get_info_copy(offering_id)[:first_choice_of][0]).id
-          if get_professors_and_offerings_for_assigning[:professors].include?(professor_id)
-            if Professor.find(professor_id).offerings.where(semester: current_semester).first
-              if schedule_conflict?(Professor.find(professor_id).offerings.where(semester: current_semester).first.schedule,offering.schedule)
-                if (offering.course.kind == 'major')
-                  x = Professor.find(professor_id).copyprefs.first
-                  x.first_major = nil
-                  x.save
-                else
-                  x = Professor.find(professor_id).copyprefs.first
-                  x.first_service = nil
-                  x.save
-                end
-              else
-                offering.professor_id = professor_id
-                offering.save         
-              end
-            else
-              offering.professor_id = professor_id
-              offering.save  
-            end
-          end        
-        end
+        first_easy
         remove_preferences_from_unavailable_professor
-        easy_second = get_second_priority_assignable(get_professors_and_offerings_for_assigning[:offerings])
-        easy_second.each do |offering_id|
-          offering = Offering.find(offering_id)
-          professor_id = Professor.find_by(name: get_info_copy(offering_id)[:second_choice_of][0]).id
-          if get_professors_and_offerings_for_assigning[:professors].include?(professor_id)
-            if Professor.find(professor_id).offerings.where(semester: current_semester).first
-              if schedule_conflict?(Professor.find(professor_id).offerings.where(semester: current_semester).first.schedule,offering.schedule)
-                if (offering.course.kind == 'major')
-                  x = Professor.find(professor_id).copyprefs.first
-                  x.second_major = nil
-                  x.save
-                else
-                  x = Professor.find(professor_id).copyprefs.first
-                  x.second_service = nil
-                  x.save
-                end
-              else
-                offering.professor_id = professor_id
-                offering.save         
-              end
-            else
-              offering.professor_id = professor_id
-              offering.save  
-            end
-          end        
-        end
+        second_easy
         remove_preferences_from_unavailable_professor
-        easy_third = get_third_priority_assignable(get_professors_and_offerings_for_assigning[:offerings])
-        easy_third.each do |offering_id|
-          offering = Offering.find(offering_id)
-          professor_id = Professor.find_by(name: get_info_copy(offering_id)[:third_choice_of][0]).id
-          if get_professors_and_offerings_for_assigning[:professors].include?(professor_id)
-            if Professor.find(professor_id).offerings.where(semester: current_semester).first
-              if schedule_conflict?(Professor.find(professor_id).offerings.where(semester: current_semester).first.schedule,offering.schedule)
-                if (offering.course.kind == 'major')
-                  x = Professor.find(professor_id).copyprefs.first
-                  x.third_major = nil
-                  x.save
-                else
-                  x = Professor.find(professor_id).copyprefs.first
-                  x.third_service = nil
-                  x.save
-                end
-              else
-                offering.professor_id = professor_id
-                offering.save         
-              end
-            else
-              offering.professor_id = professor_id
-              offering.save  
-            end
-          end        
-        end
+        third_easy
       end
-      ###Second round, solving ties by past lectures
-      get_professors_and_offerings_for_assigning[:offerings].each do |offering|
-        professor_id = was_prefered_and_tought_last_by(offering)
-        if professor_id && get_professors_and_offerings_for_assigning[:professors].include?(professor_id)
-          if Professor.find(professor_id).offerings.where(semester: current_semester).first
-            unless schedule_conflict?(Professor.find(professor_id).offerings.where(semester: current_semester).first.schedule,Offering.find(offering).schedule)
-              assignable = Offering.find(offering)
-              assignable.professor_id = professor_id
-              assignable.save
-              ##If add on other rules should take care of removing professor?          
-            end
-          end
-        end
-      end
-      ###Third round, solving ties by past preferences
-      get_professors_and_offerings_for_assigning[:offerings].each do |offering|
-        professor_id = was_prefered_and_tought_last_by(offering)
-        if professor_id && get_professors_and_offerings_for_assigning[:professors].include?(professor_id)
-          if Professor.find(professor_id).offerings.where(semester: current_semester).first
-            unless schedule_conflict?(Professor.find(professor_id).offerings.where(semester: current_semester).first.schedule,Offering.find(offering).schedule)
-              assignable = Offering.find(offering)
-              assignable.professor_id = professor_id
-              assignable.save
-              ##If add on other rules should take care of removing professor?          
-            end
-          end
-        end
-      end
+      second_round_tie_braker_past_lectures
+      third_round_tie_braker_past_preferences
     #end of the method  
     end
   #end of the self assignment
