@@ -35,8 +35,8 @@ function go(){
 
   $('#magicbutton').on('click',function(){
     $('#needtohide').css("display","none");
-    $('.signal').css("display","initial");
-
+    $('.loading').css("display","initial");
+    
   })
 
 }
