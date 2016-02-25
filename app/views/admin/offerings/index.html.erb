@@ -1,78 +1,204 @@
 
-<h5>Current Semester: <%= decode_semester(current_semester) %></h5>
-<table class='table table-hover'  id='admin_offering_table'>
-  <caption><h4>Offerings Listing</h4></caption>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Letter</th>
-      <th>Schedule</th>
-      <th>Professor</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @offerings.each do |offering| %>
-      <% if offering.professor && offering.professor.offerings.where(semester: current_semester).count == 2 %>
-        <tr class='bg-success'>
-      <% elsif offering.professor && offering.professor.offerings.where(semester: current_semester).count == 1 %>
-        <tr class='bg-info'>
-      <% else %>
-        <tr>
-      <% end %>
-        <td><%= link_to offering.course.name,edit_admin_offering_path(offering) %></td>
-        <td id='offering_table_letter'><%= offering.letter %></td>
-        <td><%= Offering.decode_schedule(offering.schedule) %></td>
-        <%if offering.professor_id%>
-          <td><%= offering.professor.name %></td>
-        <%else%>
-          <td style="color:red;">To be assigned</td>
-        <%end%>
-        <td>
-        <% if offering.professor_id %>
-          <%= link_to 'Remove professor',admin_offering_resetprof_path(offering),method: :put %>
-        <% end %>
-        </td>
+<div class="signal" style="display:none"></div>
+<div id='needtohide' style="display:initial">
+  <h5>Current Semester: <%= decode_semester(current_semester) %></h5>
+  <table class='table table-hover'  id='admin_offering_table'>
+    <caption><h4>Offerings Listing</h4></caption>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Letter</th>
+        <th>Schedule</th>
+        <th>Professor</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<div class="panel-default well">
-  <div class="panel-heading">
-    <h3 class='panel-title'>Add new offering</h3>
+    <tbody>
+      <% @offerings.each do |offering| %>
+        <% if offering.professor && offering.professor.offerings.where(semester: current_semester).count == 2 %>
+          <tr class='bg-success'>
+        <% elsif offering.professor && offering.professor.offerings.where(semester: current_semester).count == 1 %>
+          <tr class='bg-info'>
+        <% else %>
+          <tr>
+        <% end %>
+          <td><%= link_to offering.course.name,edit_admin_offering_path(offering) %></td>
+          <td id='offering_table_letter'><%= offering.letter %></td>
+          <td><%= Offering.decode_schedule(offering.schedule) %></td>
+          <%if offering.professor_id%>
+            <td><%= offering.professor.name %></td>
+          <%else%>
+            <td style="color:red;">To be assigned</td>
+          <%end%>
+          <td>
+          <% if offering.professor_id %>
+            <%= link_to 'Remove professor',admin_offering_resetprof_path(offering),method: :put %>
+          <% end %>
+          </td>
+          <td>
+            <button class='btn btn-default' data-toggle='modal' data-target='#<%=offering.id%>'>View Preferences</button>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="panel-default well">
+    <div class="panel-heading">
+      <h3 class='panel-title'>Add new offering</h3>
+    </div>
+    <div class="panel-body">
+      <%= form_for [:admin, @new_offering] do |f| %>
+        <div class="form-group col-md-4">
+          <%= f.label :course_id %><br>
+          <%= f.select :course_id, options_for_select(Course.order(:name).pluck(:name, :id)), :prompt => "Please select" %>
+        <div id="timeforms"></div>
+        </div>
+        <div class="form-group col-md-4">
+          <%= f.label :letter %><br>
+          <%= f.select :letter,options_for_select(("A".."Z").to_a.zip(("A".."Z").to_a)), :prompt => "Please select" %>
+        </div>
+        <div class="form-group" style="display: none">
+          <%= f.label :schedule %><br>
+          <%= f.text_field :schedule %>
+        </div>
+        <div class="form-group col-md-4">
+          <%= f.label :professor_id %><br>
+          <%= f.select :professor_id, options_for_select(Professor.pluck(:name, :id)), :prompt => "Please select" %>
+        </div>
+        <div class="actions col-md-4">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <div class="panel-body">
-    <%= form_for [:admin, @new_offering] do |f| %>
-      <div class="form-group col-md-4">
-        <%= f.label :course_id %><br>
-        <%= f.select :course_id, options_for_select(Course.order(:name).pluck(:name, :id)), :prompt => "Please select" %>
-      <div id="timeforms"></div>
+
+  <div class='row'>
+    <%= link_to 'Notify All Professors (email each professor)', admin_notify_all_path, method: :post, data: {confirm: 'Are you sure?'},class: 'btn btn-warning col-md-4 col-md-offset-1'  %>
+  </div>
+  <div class='row'>
+    <%= link_to 'Remove all professors', admin_offerings_clear_path, class: 'btn btn-danger col-md-4 col-md-offset-1', data: {confirm: 'Are you sure?'} %>
+  </div>
+    <%= link_to 'Magic GO!', admin_offerings_domagic_path , method: :get,class: 'btn btn-primary col-md-3 col-md-offset-3',style: 'padding:25px;margin-left:60%;margin-top:-6%;height:70px;', id: "magicbutton"  %>
+
+  <!--                                                                -->
+  <div class='container'>
+    <% major = @results[0] %>
+    <% major.each do |hash| %>
+
+    <div class="panel-primary modal fade" id='<%=hash[:offering_id]%>' tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class='modal-dialog' role='document' style="width: 90%">
+    <div class='modal-content'>
+
+    <div class="panel-primary well">
+      <div class="panel-heading">
+        <h3><%= hash[:course]%> <%= hash[:letter]%></h3>
+        <h5><%= Offering.decode_schedule(hash[:schedule])%></h5>
       </div>
-      <div class="form-group col-md-4">
-        <%= f.label :letter %><br>
-        <%= f.select :letter,options_for_select(("A".."Z").to_a.zip(("A".."Z").to_a)), :prompt => "Please select" %>
+      <div class='panel-body'>
+        <div class='row'>
+          <div class='col-md-2 btn btn-info'>First choice</div>
+          <div class='col-md-10'>
+              <% hash[:first_choice_of].each do |professor_name| %>
+                <button class='btn btn-default' data-toggle='modal' data-target='#<%=professor_name.gsub(/\W/,'_')%>'><%= professor_name %></button>
+            <% end %> 
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-md-2 btn btn-info'>Second choice</div>
+          <div class='col-md-10'>
+              <% hash[:second_choice_of].each do |professor_name| %>
+                <button class='btn btn-default' data-toggle='modal' data-target='#<%=professor_name.gsub(/\W/,'_')%>'><%= professor_name %></button>
+              <% end %>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-md-2 btn btn-info'>Third choice</div>
+          <div class='col-md-10'>
+              <% hash[:third_choice_of].each do |professor_name| %>
+                <button class='btn btn-default' data-toggle='modal' data-target='#<%=professor_name.gsub(/\W/,'_')%>'><%= professor_name %></button>
+              <% end %>
+          </div>
+        </div>
       </div>
-      <div class="form-group" style="display: none">
-        <%= f.label :schedule %><br>
-        <%= f.text_field :schedule %>
+    </div>
+    </div>
+    </div>
+    </div>
+  <% end %>
+
+
+      <% servicecourse = (@results[1])%>
+      <% servicecourse.each do |service_course|%>
+
+      <div class="panel-primary modal fade" id='<%=service_course[:offering_id]%>' tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+      <div class='modal-dialog' role='document' style="width: 90%">
+      <div class='modal-content'>
+
+      <div class="panel-primary well">
+        <div class="panel-heading">
+          <h3><%= service_course[:course]%> <%= service_course[:letter]%></h3>
+          <h5><%=Offering.decode_schedule(service_course[:schedule])%></h5>
+        </div>
+        <div class='panel-body'>
+          <div class='row'>
+            <div class='col-md-2 btn btn-info'>First choice</div>
+            <div class='col-md-10'>
+                <% service_course[:first_choice_of].each do |professor_name| %>
+                  <button class='btn btn-default' data-toggle='modal' data-target='#<%=professor_name.gsub(/\W/,'_')%>'><%= professor_name %></button>
+              <% end %> 
+            </div>
+          </div>
+          <div class='row'>
+            <div class='col-md-2 btn btn-info'>Second choice</div>
+            <div class='col-md-10'>
+                <% service_course[:second_choice_of].each do |professor_name| %>
+                  <button class='btn btn-default' data-toggle='modal' data-target='#<%=professor_name.gsub(/\W/,'_')%>'><%= professor_name %></button>
+                <% end %>
+            </div>
+          </div>
+          <div class='row'>
+            <div class='col-md-2 btn btn-info'>Third choice</div>
+            <div class='col-md-10'>
+                <% service_course[:third_choice_of].each do |professor_name| %>
+                  <button class='btn btn-default' data-toggle='modal' data-target='#<%=professor_name.gsub(/\W/,'_')%>'><%= professor_name %></button>
+                <% end %>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="form-group col-md-4">
-        <%= f.label :professor_id %><br>
-        <%= f.select :professor_id, options_for_select(Professor.pluck(:name, :id)), :prompt => "Please select" %>
       </div>
-      <div class="actions col-md-4">
-        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
       </div>
     <% end %>
   </div>
+
+
+
+
+    <% @preferences.each do |preference| %>
+      <div class="panel-primary modal fade" id='<%=preference.professor.name.gsub(/\W/,'_')%>' tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class='modal-dialog' role='document' style="width: 90%">
+        <div class='modal-content'>
+        <div class="panel-heading" id='exampleModalLabel'>
+          <h3 class='panel-title'>
+            <%= preference.professor.name%></h3><h4><%=decode_semester(preference.semester)%></h4>
+        </div>
+        <div class='panel-body'>
+          <h5 class='col-md-4'>First preference for major:</h5><h5 class='col-md-3'><strong><%= Offering.find(preference.first_major).course.name%></strong></h5><h5 class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.first_major).schedule)%></h5>
+          <h5 class='col-md-4'>Second preference for major:</h5><h5 class='col-md-3'><strong><%=Offering.find(preference.second_major).course.name%></strong></h5><h5 class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.second_major).schedule)%></h5>
+          <h5 class='col-md-4'>Third preference for major:</h5><h5 class='col-md-3'><strong><%=Offering.find(preference.third_major).course.name%></strong></h5><h5 class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.third_major).schedule)%></h5>
+          <h5 class='col-md-4'>First preference for service:</h5><h5 class='col-md-3'><strong><%= Offering.find(preference.first_service).course.name%></strong></h5><h5 class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.first_service).schedule)%></h5>
+          <h5 class='col-md-4'>Second preference for service:</h5><h5 class='col-md-3'><strong><%=Offering.find(preference.second_service).course.name%></strong></h5><h5 class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.second_service).schedule)%></h5>
+          <h5 class='col-md-4'>Third preference for service:</h5><h5 class='col-md-3'><strong><%=Offering.find(preference.third_service).course.name%></strong></h5><h5 class='col-md-5'><%= Offering.decode_schedule(Offering.find(preference.third_service).schedule)%></h5>
+        </div>
+      </div>
+      </div>
+      </div>
+    <%end%>
 </div>
 
-<div class='row'>
-  <%= link_to 'Notify All Professors (email each professor)', admin_notify_all_path, method: :post, data: {confirm: 'Are you sure?'},class: 'btn btn-warning col-md-4 col-md-offset-1'  %>
-</div>
-<div class='row'>
-  <%= link_to 'Remove all professors', admin_offerings_clear_path, class: 'btn btn-danger col-md-4 col-md-offset-1', data: {confirm: 'Are you sure?'} %>
-</div>
-  <%= link_to 'Magic GO!', admin_offerings_domagic_path , method: :get, data: {confirm: 'Ready?'},class: 'btn btn-primary col-md-3 col-md-offset-3',style: 'padding:25px;margin-left:60%;margin-top:-6%;height:70px;'  %>
+
+
+

@@ -32,5 +32,12 @@ function go(){
     $('#offering_schedule').val(sched.join(""));
 
   });
+
+  $('#magicbutton').on('click',function(){
+    $('#needtohide').css(display,"hide");
+    $('.signal').css(display,"initial");
+
+  })
+
 }
 
