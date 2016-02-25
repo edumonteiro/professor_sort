@@ -55,12 +55,12 @@
       <%= form_for [:admin, @new_offering] do |f| %>
         <div class="form-group col-md-4">
           <%= f.label :course_id %><br>
-          <%= f.select :course_id, options_for_select(Course.order(:name).pluck(:name, :id)),{}, {:prompt => "Please select",class:"form-control"} %>
+          <%= f.select :course_id, options_for_select(Course.order(:name).pluck(:name, :id)),{:prompt => "Please select"}, {class:"form-control"} %>
         <div id="timeforms"></div>
         </div>
         <div class="form-group col-md-4">
           <%= f.label :letter %><br>
-          <%= f.select :letter,options_for_select(("A".."Z").to_a.zip(("A".."Z").to_a)),{}, {:prompt => "Please select",class: "form-control"} %>
+          <%= f.select :letter,options_for_select(("A".."Z").to_a.zip(("A".."Z").to_a)),{:prompt => "Please select"}, {class: "form-control"} %>
         </div>
         <div class="form-group" style="display: none">
           <%= f.label :schedule %><br>
@@ -68,7 +68,7 @@
         </div>
         <div class="form-group col-md-4">
           <%= f.label :professor_id %><br>
-          <%= f.select :professor_id, options_for_select(Professor.pluck(:name, :id)),{}, {:prompt => "Please select",class: "form-control"} %>
+          <%= f.select :professor_id, options_for_select(Professor.pluck(:name, :id)),{:prompt => "Please select"}, {class: "form-control"} %>
         </div>
         <div class="actions col-md-4">
           <button type="submit" class="btn btn-primary">Add Offering</button>
@@ -201,7 +201,3 @@
       </div>
     <%end%>
 </div>
-
-
-
-

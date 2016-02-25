@@ -1,6 +1,6 @@
 require 'faker'
 i = 0
-30.times do 
+28.times do 
   
   professor = Professor.new
   professor.name = Faker::Name.name 
@@ -19,3 +19,16 @@ professor.email = "admin"
 professor.kind = "admin"
 professor.status = "active"
 professor.save
+
+professor = Professor.new
+professor.name = "super"
+professor.email = "super"
+professor.kind = "admin"
+professor.status = "license"
+professor.password = "1234"
+professor.save
+
+aa = Ourconfig.new
+aa.name = "super_user_id"
+aa.value = professor.id
+aa.save

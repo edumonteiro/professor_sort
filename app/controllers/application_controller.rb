@@ -13,38 +13,38 @@ class ApplicationController < ActionController::Base
     offering = Offering.find(offering_id)
     name = offering.course.name
     if offering.course.kind == "major"
-      pref1 = Copypref.where(first_major: offering_id)
+      pref1 =Preference.where(first_major: offering_id)
       prof_first_choice = []
-      pref1.each do |copypref|
-        prof_first_choice.push(copypref.professor.name)
+      pref1.each do |preference|
+        prof_first_choice.push(preference.professor.name)
       end
       prof_second_choice = []
-      pref2 = Copypref.where(second_major: offering_id)
-      pref2.each do |copypref|
-        prof_second_choice.push(copypref.professor.name)
+      pref2 =Preference.where(second_major: offering_id)
+      pref2.each do |preference|
+        prof_second_choice.push(preference.professor.name)
       end
       prof_third_choice = []
-      pref3 = Copypref.where(third_major: offering_id)
-      pref3.each do |copypref|
-        prof_third_choice.push(copypref.professor.name)
+      pref3 =Preference.where(third_major: offering_id)
+      pref3.each do |preference|
+        prof_third_choice.push(preference.professor.name)
       end      
     else
-      pref1 = Copypref.where(first_service: offering_id)
+      pref1 =Preference.where(first_service: offering_id)
       prof_first_choice = []
-      pref1.each do |copypref|
-        prof_first_choice.push(copypref.professor.name)
+      pref1.each do |preference|
+        prof_first_choice.push(preference.professor.name)
       end
       prof_second_choice = []
-      pref2 = Copypref.where(second_service: offering_id)
-      pref2.each do |copypref|
-        prof_second_choice.push(copypref.professor.name)
+      pref2 =Preference.where(second_service: offering_id)
+      pref2.each do |preference|
+        prof_second_choice.push(preference.professor.name)
       end
       prof_third_choice = []
-      pref3 = Copypref.where(third_service: offering_id)
+      pref3 =Preference.where(third_service: offering_id)
 
 
-      pref3.each do |copypref|
-        prof_third_choice.push(copypref.professor.name)
+      pref3.each do |preference|
+        prof_third_choice.push(preference.professor.name)
       end       
     end      
     result = {}
