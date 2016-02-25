@@ -86,8 +86,31 @@ class Magic
         result[:first_choice_of] = prof_first_choice
         result[:second_choice_of] = prof_second_choice
         result[:third_choice_of] = prof_third_choice
+        result[:offering_id] = offering.id
         result
     end
+
+    def get_preference_bycourse_copy(offerings)
+    major_offering_ids = []
+    service_offering_ids =[]
+    offerings.each do |offering|
+      if offering.course.kind == "major"
+        major_offering_ids.push(offering.id)
+      else
+        service_offering_ids.push(offering.id)
+      end
+    end
+    organized_major_pref = []
+    major_offering_ids.each do |offering|
+      organized_major_pref.push(get_info_copy(offering))
+    end
+    organized_service_pref = []
+    service_offering_ids.each do |offering|
+      organized_service_pref.push(get_info_copy(offering))
+    end
+    organized = [organized_major_pref,organized_service_pref]
+    organized
+  end
   
     #Method to create a hash with array of available professors and offerings to be assigned
     #The professor id apears in the array the nuber of classes he is available for teaching
@@ -140,6 +163,23 @@ class Magic
       unavailable = all_professors - available
       unavailable.each do |prof_id|
         Professor.find(prof_id).copyprefs.destroy_all
+      end
+    end
+
+    def remove_preferences_in_conflict_with_already_assigned
+      preferences_keys = Copypref.first.attributes.keys.slice(3,6)
+      professors_to_check = Offering.where(semester: current_semester).where("professor_id IS NOT NULL").pluck(:professor_id) &
+                            get_professors_and_offerings_for_assigning[:professors]
+      professors_to_check.each do |professor_id|
+        preferences_keys.each do |value|
+          unless Professor.find(professor_id).copyprefs.empty?
+            if Professor.find(professor_id).copyprefs.first[value] && schedule_conflict?(Offering.find(Professor.find(professor_id).copyprefs.first[value]).schedule,Offering.find_by(professor_id: professor_id).schedule)
+              pref = Professor.find(professor_id).copyprefs.first
+              pref[value] = nil
+              pref.save
+            end
+          end
+        end
       end
     end
 
@@ -324,24 +364,48 @@ class Magic
     def do_magic
       Copypref.populate_to_copyprefs
       remove_preferences_from_unavailable_professor
-      #First Round will keep looping and assigning cases with on ties on the highest preferences available
+      remove_preferences_in_conflict_with_already_assigned
       while (get_first_priority_assignable(get_professors_and_offerings_for_assigning[:offerings]) != [] ||
             get_second_priority_assignable(get_professors_and_offerings_for_assigning[:offerings]) != [] ||
             get_third_priority_assignable(get_professors_and_offerings_for_assigning[:offerings]) != [])
         remove_preferences_from_unavailable_professor
-        #Firstly the cases with no ties on the first preference
+        remove_preferences_in_conflict_with_already_assigned
         first_easy
         remove_preferences_from_unavailable_professor
+        remove_preferences_in_conflict_with_already_assigned
         second_easy
         remove_preferences_from_unavailable_professor
+        remove_preferences_in_conflict_with_already_assigned
         third_easy
       end
+      remove_preferences_in_conflict_with_already_assigned
+      remove_preferences_from_unavailable_professor
       second_round_tie_braker_past_lectures
+      remove_preferences_in_conflict_with_already_assigned
       third_round_tie_braker_past_preferences
     #end of the method  
     end
+
+    def do_magic_all_the_way
+      Copypref.populate_to_copyprefs
+      remove_preferences_from_unavailable_professor
+      before_loop_count = get_professors_and_offerings_for_assigning[:offerings].count
+      after_loop_count = 0
+        while (before_loop_count != after_loop_count)
+          before_loop_count = get_professors_and_offerings_for_assigning[:offerings].count
+          do_magic
+          after_loop_count = get_professors_and_offerings_for_assigning[:offerings].count
+        end
+    end
+  
+
+
+
+
+
+
+
   #end of the self assignment
   end
-
 #end of the class
 end

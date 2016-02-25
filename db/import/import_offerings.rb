@@ -126,21 +126,21 @@ aa.save
 aa = Offering.new()
 aa.course_id = Course.find_by(name: "Applied Statistics").id
 aa.letter = "B"
-aa.schedule = "a1c1d1"
+aa.schedule = "a1c1e1"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
 aa.course_id = Course.find_by(name: "Applied Statistics").id
 aa.letter = "C"
-aa.schedule = "a1c1d1"
+aa.schedule = "a1c1e1"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
 aa.course_id = Course.find_by(name: "Applied Statistics").id
 aa.letter = "D"
-aa.schedule = "a2c2d2"
+aa.schedule = "a2c2e2"
 aa.semester = Date.new(2016,3)
 aa.save
 
@@ -154,42 +154,42 @@ aa.save
 aa = Offering.new()
 aa.course_id = Course.find_by(name: "Applied Statistics").id
 aa.letter = "F"
-aa.schedule = "a1c1d1"
+aa.schedule = "a1c1e1"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
 aa.course_id = Course.find_by(name: "Applied Statistics").id
 aa.letter = "G"
-aa.schedule = "a2c2d2"
+aa.schedule = "a2c2e2"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
 aa.course_id = Course.find_by(name: "Applied Statistics").id
 aa.letter = "H"
-aa.schedule = "a4c4d4"
+aa.schedule = "a4c4e4"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
 aa.course_id = Course.find_by(name: "Applied Statistics").id
 aa.letter = "I"
-aa.schedule = "a8c8d8"
+aa.schedule = "a8c8e8"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
 aa.course_id = Course.find_by(name: "Applied Statistics").id
 aa.letter = "J"
-aa.schedule = "a2c2d2"
+aa.schedule = "a2c2e2"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
 aa.course_id = Course.find_by(name: "Applied Statistics").id
 aa.letter = "K"
-aa.schedule = "a4c4d4"
+aa.schedule = "a4c4e4"
 aa.semester = Date.new(2016,3)
 aa.save
 
@@ -203,21 +203,21 @@ aa.save
 aa = Offering.new()
 aa.course_id = Course.find_by(name: "Applied Statistics").id
 aa.letter = "M"
-aa.schedule = "a8c8d8"
+aa.schedule = "a8c8e8"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
 aa.course_id = Course.find_by(name: "Applied Statistics").id
 aa.letter = "N"
-aa.schedule = "a5c5d5"
+aa.schedule = "a5c5e5"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
 aa.course_id = Course.find_by(name: "Applied Statistics").id
 aa.letter = "O"
-aa.schedule = "a5c5d5"
+aa.schedule = "a5c5e5"
 aa.semester = Date.new(2016,3)
 aa.save
 

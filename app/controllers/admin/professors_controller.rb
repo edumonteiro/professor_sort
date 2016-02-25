@@ -11,6 +11,7 @@ class Admin::ProfessorsController < ApplicationController
 
   def create
     @professor = Professor.new(professor_params)
+    @professor.password = "1234"
 
     if @professor.save
       redirect_to admin_professors_path, notice: "#{@professor.name} was created successfully!"
