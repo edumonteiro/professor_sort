@@ -202,7 +202,6 @@ class Magic
       end
       nil
     end
-
     def first_easy
       easy_first = get_first_priority_assignable(get_professors_and_offerings_for_assigning[:offerings])
       easy_first.each do |offering_id|

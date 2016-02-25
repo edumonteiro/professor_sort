@@ -37,7 +37,6 @@ function go(){
     $('#needtohide').css("display","none");
     $('.loading').css("display","initial");
     
-
   })
 
 }
