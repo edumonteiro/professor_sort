@@ -40,6 +40,56 @@ class Magic
       twoago_semester
     end
 
+    def get_info(offering_id)
+    offering = Offering.find(offering_id)
+    name = offering.course.name
+    if offering.course.kind == "major"
+      pref1 =Preference.where(first_major: offering_id)
+      prof_first_choice = []
+      pref1.each do |preference|
+        prof_first_choice.push(preference.professor.name)
+      end
+      prof_second_choice = []
+      pref2 =Preference.where(second_major: offering_id)
+      pref2.each do |preference|
+        prof_second_choice.push(preference.professor.name)
+      end
+      prof_third_choice = []
+      pref3 =Preference.where(third_major: offering_id)
+      pref3.each do |preference|
+        prof_third_choice.push(preference.professor.name)
+      end      
+    else
+      pref1 =Preference.where(first_service: offering_id)
+      prof_first_choice = []
+      pref1.each do |preference|
+        prof_first_choice.push(preference.professor.name)
+      end
+      prof_second_choice = []
+      pref2 =Preference.where(second_service: offering_id)
+      pref2.each do |preference|
+        prof_second_choice.push(preference.professor.name)
+      end
+      prof_third_choice = []
+      pref3 =Preference.where(third_service: offering_id)
+
+
+      pref3.each do |preference|
+        prof_third_choice.push(preference.professor.name)
+      end       
+    end      
+    result = {}
+    result[:course] = name
+    result[:letter] = offering.letter
+    result[:schedule] = offering.schedule
+    result[:semester] = offering.semester
+    result[:first_choice_of] = prof_first_choice
+    result[:second_choice_of] = prof_second_choice
+    result[:third_choice_of] = prof_third_choice
+    result[:offering_id] = offering_id
+    result
+  end
+
     def get_info_copy(offering_id)
         offering = Offering.find(offering_id)
         name = offering.course.name
@@ -417,9 +467,72 @@ class Magic
 
     end
   
+ ######Second version with random assignment of professors and objective function
+    def random_assign
+      Offering.where(semester: current_semester).each do |object|
+        object.professor_id = nil
+        object.save
+      end
+      info = get_professors_and_offerings_for_assigning
+      professors = info[:professors]
+      professors = professors.sample(professors.length)
+      info[:offerings].each do |offering_id|
+        offering = Offering.find(offering_id)
+        counter = 0 
+        while(offering.professor_id.nil? && counter < professors.length)
+          professor = Professor.find(professors.pop)
+          if professor.offerings.where(semester: current_semester).empty? || !schedule_conflict?(professor.offerings.where(semester: current_semester).first.schedule , offering.schedule)
+            offering.professor_id = professor.id
+            offering.save
+          else
+            professors.unshift(professor.id)
+            counter += 1
+          end
+        end
+      end
+    end
 
+    def calculate_score(a1,a2,a3)
+      score = 0
+      Offering.where(semester: current_semester).each do |offering|
+        professor_name = offering.professor.name
+        prefs = get_info(offering.id)
+        if prefs[:first_choice_of].include?(professor_name)
+          score += a1
+        else
+          if prefs[:second_choice_of].include?(professor_name)
+            score += a2
+          else
+              if prefs[:third_choice_of].include?(professor_name)
+                score += a3                
+              end
+          end
+        end
+      end
+      score
+    end
 
+    def fetch_data
+      result = []
+      Offering.where(semester: current_semester).each do |offering|
+        result.push([ offering.id , offering.professor_id])
+      end
+      result
+    end
 
+    def go_random(iterations)
+      score = 0
+      final = []
+      iterations.times do
+        random_assign
+        calculated = calculate_score(10,8,5)
+        if calculated > score
+          final = fetch_data
+          score = calculated
+        end
+      end
+      {score: score, assignment: final}
+    end
 
 
 
