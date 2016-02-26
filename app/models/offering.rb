@@ -2,7 +2,7 @@ class Offering < ActiveRecord::Base
   belongs_to :course
   belongs_to :professor
 
-  validate :restrict_schedule_format, if: :schedule
+  # validate :restrict_schedule_format, if: :schedule
 
   def self.decode_schedule(code)
     result = []

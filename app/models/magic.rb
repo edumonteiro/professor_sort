@@ -40,6 +40,56 @@ class Magic
       twoago_semester
     end
 
+    def get_info(offering_id)
+    offering = Offering.find(offering_id)
+    name = offering.course.name
+    if offering.course.kind == "major"
+      pref1 =Preference.where(first_major: offering_id)
+      prof_first_choice = []
+      pref1.each do |preference|
+        prof_first_choice.push(preference.professor.name)
+      end
+      prof_second_choice = []
+      pref2 =Preference.where(second_major: offering_id)
+      pref2.each do |preference|
+        prof_second_choice.push(preference.professor.name)
+      end
+      prof_third_choice = []
+      pref3 =Preference.where(third_major: offering_id)
+      pref3.each do |preference|
+        prof_third_choice.push(preference.professor.name)
+      end      
+    else
+      pref1 =Preference.where(first_service: offering_id)
+      prof_first_choice = []
+      pref1.each do |preference|
+        prof_first_choice.push(preference.professor.name)
+      end
+      prof_second_choice = []
+      pref2 =Preference.where(second_service: offering_id)
+      pref2.each do |preference|
+        prof_second_choice.push(preference.professor.name)
+      end
+      prof_third_choice = []
+      pref3 =Preference.where(third_service: offering_id)
+
+
+      pref3.each do |preference|
+        prof_third_choice.push(preference.professor.name)
+      end       
+    end      
+    result = {}
+    result[:course] = name
+    result[:letter] = offering.letter
+    result[:schedule] = offering.schedule
+    result[:semester] = offering.semester
+    result[:first_choice_of] = prof_first_choice
+    result[:second_choice_of] = prof_second_choice
+    result[:third_choice_of] = prof_third_choice
+    result[:offering_id] = offering_id
+    result
+  end
+
     def get_info_copy(offering_id)
         offering = Offering.find(offering_id)
         name = offering.course.name
@@ -446,7 +496,7 @@ class Magic
       score = 0
       Offering.where(semester: current_semester).each do |offering|
         professor_name = offering.professor.name
-        prefs = get_info_copy(offering.id)
+        prefs = get_info(offering.id)
         if prefs[:first_choice_of].include?(professor_name)
           score += a1
         else
