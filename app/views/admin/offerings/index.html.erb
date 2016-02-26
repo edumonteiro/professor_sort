@@ -1,3 +1,16 @@
+<% if @offering.errors.any? %>
+  <div class="alert alert-danger">
+    <div>
+      <%= pluralize(@offering.errors.count, "error") %> prevented this offering from being submitted:
+        <ul>
+          <% @offering.errors.full_messages.each do |msg|%>
+          <li> <%= msg %></li>
+          <% end %>
+        </ul>
+    </div>
+  </div>
+<% end %>
+
 
 <div class="loading" style="display:none" >
   <div class="ball"></div>
@@ -58,7 +71,7 @@
       <h3 class='panel-title'>Add new offering</h3>
     </div>
     <div class="panel-body">
-      <%= form_for [:admin, @new_offering] do |f| %>
+      <%= form_for [:admin, @offering] do |f| %>
         <div class="form-group col-md-4">
           <%= f.label :course_id %><br>
           <%= f.select :course_id, options_for_select(Course.order(:name).pluck(:name, :id)),{:prompt => "Please select"}, {class:"form-control"} %>
@@ -90,7 +103,7 @@
     <%= link_to 'Remove all professors', admin_offerings_clear_path, class: 'btn btn-danger col-md-4 col-md-offset-1', data: {confirm: 'Are you sure?'} %>
   </div>
     <%= link_to 'Magic GO Stepwise!', admin_offerings_domagic_path , method: :get,class: 'btn btn-info col-md-2',style: 'padding:25px;margin-left:60%;margin-top:-6%;height:70px;', id: "magicbutton"  %>
-    <%= link_to 'Magic All the Way!', admin_offerings_domagic_path , method: :get,class: 'btn btn-primary col-md-2',style: 'padding:25px;margin-left:80%;margin-top:-6%;height:70px;', id: "magicbutton"  %>
+    <%= link_to 'Magic All the Way!', admin_offerings_domagicalltheway_path , method: :get,class: 'btn btn-primary col-md-2',style: 'padding:25px;margin-left:80%;margin-top:-6%;height:70px;', id: "magicallbutton"  %>
 
   <!--                                                                -->
   <div class='container'>

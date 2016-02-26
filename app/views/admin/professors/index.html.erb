@@ -10,7 +10,7 @@
   </thead>
 
   <tbody>
-    <% @professors.each do |professor| %>
+    <% @professors.sort_by{|professor| professor.name }.each do |professor| %>
       <tr>
         <td><%= link_to professor.name, edit_admin_professor_path(professor)  %></td>
         <td><%= professor.email %></td>
@@ -22,7 +22,6 @@
     <% end %>
   </tbody>
 </table>
-
 
 <div class="panel-default well">
   <div class="panel-heading">

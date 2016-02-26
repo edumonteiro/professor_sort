@@ -10,7 +10,7 @@ class Admin::OfferingsController < ApplicationController
     @preferences = Preference.where(semester: current_semester)
     ##stuff in here are hidden unless being clicked
     @offerings = Offering.where(semester: current_semester)
-    @new_offering = Offering.new
+    @offering = Offering.new
     #################
   end
 
@@ -21,8 +21,14 @@ class Admin::OfferingsController < ApplicationController
   def create
     @offering = Offering.new(offering_params)
     @offering.semester = current_semester
-    @offering.save
-    redirect_to admin_offerings_path
+    if @offering.save
+      redirect_to admin_offerings_path
+    else
+      @offerings = Offering.where(semester: current_semester)
+      @results = Magic.get_preference_bycourse_copy(Offering.where(semester: current_semester))
+      @preferences = Preference.where(semester: current_semester)
+      render :index
+    end
   end
 
   def destroy
