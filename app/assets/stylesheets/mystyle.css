@@ -127,16 +127,11 @@ footer{
 }
 
 #admin_offering_table thead th:nth-child(5){
-  width: 10%;
+  width: 20%;
   float: left;
 }
 
 #admin_offering_table tbody td:nth-child(5) {
-  width: 10%;
-  float: left;
-}
-
-#admin_offering_table thead th:nth-child(5){
   width: 10%;
   float: left;
 }
