@@ -361,7 +361,6 @@ class Magic
 
     #this method will be responsible for doing the asignment 
     def do_magic
-      Copypref.populate_to_copyprefs
       remove_preferences_from_unavailable_professor
       remove_preferences_in_conflict_with_already_assigned
       while (get_first_priority_assignable(get_professors_and_offerings_for_assigning[:offerings]) != [] ||
@@ -386,15 +385,36 @@ class Magic
     end
 
     def do_magic_all_the_way
-      Copypref.populate_to_copyprefs
       remove_preferences_from_unavailable_professor
       before_loop_count = get_professors_and_offerings_for_assigning[:offerings].count
       after_loop_count = 0
-        while (before_loop_count != after_loop_count)
-          before_loop_count = get_professors_and_offerings_for_assigning[:offerings].count
-          do_magic
-          after_loop_count = get_professors_and_offerings_for_assigning[:offerings].count
+      while (before_loop_count != after_loop_count)
+        before_loop_count = get_professors_and_offerings_for_assigning[:offerings].count
+        do_magic
+        after_loop_count = get_professors_and_offerings_for_assigning[:offerings].count
+      end
+      ##Randomly braking ties and assigining professors to offerings with no preferences
+      unassigned = get_professors_and_offerings_for_assigning[:offerings].sort_by { |offer_id| get_info_copy(offer_id).values_at(:first_choice_of, :second_choice_of, :third_choice_of).flatten.length } 
+      unassigned.each do |offering_id|
+        remove_preferences_in_conflict_with_already_assigned
+        remove_preferences_from_unavailable_professor
+        offering_to_be_assigned = Offering.find(offering_id)
+        if get_info_copy(offering_id)[:first_choice_of] != []
+          offering_to_be_assigned.professor_id = get_info_copy(offering_id)[:first_choice_of].map { |name| Professor.find_by(name: name).id }.sample  
+        else
+          if get_info_copy(offering_id)[:second_choice_of] != []
+            offering_to_be_assigned.professor_id = get_info_copy(offering_id)[:second_choice_of].map { |name| Professor.find_by(name: name).id }.sample              
+          else
+            if get_info_copy(offering_id)[:third_choice_of] != []
+              offering_to_be_assigned.professor_id = get_info_copy(offering_id)[:third_choice_of].map { |name| Professor.find_by(name: name).id }.sample              
+            else
+              offering_to_be_assigned.professor_id = get_professors_and_offerings_for_assigning[:professors].sample
+            end
+          end
         end
+        offering_to_be_assigned.save
+      end
+
     end
   
 
