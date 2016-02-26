@@ -116,106 +116,108 @@ aa.schedule = "a5c5"
 aa.semester = Date.new(2016,3)
 aa.save
 
+applied = Course.find_by(name: "Applied Statistics").id
+
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Applied Statistics").id
+aa.course_id = applied
 aa.letter = "A"
 aa.schedule = "a7c7e7"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Applied Statistics").id
+aa.course_id = applied
 aa.letter = "B"
 aa.schedule = "a1c1e1"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Applied Statistics").id
+aa.course_id = applied
 aa.letter = "C"
 aa.schedule = "a1c1e1"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Applied Statistics").id
+aa.course_id = applied
 aa.letter = "D"
 aa.schedule = "a2c2e2"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Applied Statistics").id
+aa.course_id = applied
 aa.letter = "E"
 aa.schedule = "a7c7e7"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Applied Statistics").id
+aa.course_id = applied
 aa.letter = "F"
 aa.schedule = "a1c1e1"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Applied Statistics").id
+aa.course_id = applied
 aa.letter = "G"
 aa.schedule = "a2c2e2"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Applied Statistics").id
+aa.course_id = applied
 aa.letter = "H"
 aa.schedule = "a4c4e4"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Applied Statistics").id
+aa.course_id = applied
 aa.letter = "I"
 aa.schedule = "a8c8e8"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Applied Statistics").id
+aa.course_id = applied
 aa.letter = "J"
 aa.schedule = "a2c2e2"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Applied Statistics").id
+aa.course_id = applied
 aa.letter = "K"
 aa.schedule = "a4c4e4"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Applied Statistics").id
+aa.course_id = applied
 aa.letter = "L"
 aa.schedule = "a7c7e7"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Applied Statistics").id
+aa.course_id = applied
 aa.letter = "M"
 aa.schedule = "a8c8e8"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Applied Statistics").id
+aa.course_id = applied
 aa.letter = "N"
 aa.schedule = "a5c5e5"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Applied Statistics").id
+aa.course_id = applied
 aa.letter = "O"
 aa.schedule = "a5c5e5"
 aa.semester = Date.new(2016,3)
@@ -277,85 +279,87 @@ aa.schedule = "b4d4e4"
 aa.semester = Date.new(2016,3)
 aa.save
 
+pe = Course.find_by(name: "Probability and Statistics").id
+
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Probability and Statistics").id
+aa.course_id = pe
 aa.letter = "A"
 aa.schedule = "a5c5e5"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Probability and Statistics").id
+aa.course_id = pe
 aa.letter = "B"
 aa.schedule = "a2c2e2"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Probability and Statistics").id
+aa.course_id = pe
 aa.letter = "C"
 aa.schedule = "a7c7e7"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Probability and Statistics").id
+aa.course_id = pe
 aa.letter = "D"
 aa.schedule = "a4c4e4"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Probability and Statistics").id
+aa.course_id = pe
 aa.letter = "E"
 aa.schedule = "a4c4e4"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Probability and Statistics").id
+aa.course_id = pe
 aa.letter = "F"
 aa.schedule = "a5c5e5"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Probability and Statistics").id
+aa.course_id = pe
 aa.letter = "G"
 aa.schedule = "a7c7e7"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Probability and Statistics").id
+aa.course_id = pe
 aa.letter = "H"
 aa.schedule = "a4c4e4"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Probability and Statistics").id
+aa.course_id = pe
 aa.letter = "I"
 aa.schedule = "a2c2e2"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Probability and Statistics").id
+aa.course_id = pe
 aa.letter = "J"
 aa.schedule = "a1c1e1"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Probability and Statistics").id
+aa.course_id = pe
 aa.letter = "K"
 aa.schedule = "a7c7e7"
 aa.semester = Date.new(2016,3)
 aa.save
 
 aa = Offering.new()
-aa.course_id = Course.find_by(name: "Probability and Statistics").id
+aa.course_id = pe
 aa.letter = "L"
 aa.schedule = "a1c1e1"
 aa.semester = Date.new(2016,3)

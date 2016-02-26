@@ -4,6 +4,7 @@ class Offering < ActiveRecord::Base
 
   # validate :restrict_schedule_format
 
+
   def self.decode_schedule(code)
     result = []
     code.split("").each do |value|

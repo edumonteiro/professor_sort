@@ -18,8 +18,9 @@ end
 
 
 professors_ids.each do |prof_id|
-  major_offering_ids = separate_major_service(Date.new(2016,3))[:major].sample(separate_major_service(Date.new(2016,3))[:major].length)
-  service_offering_ids = separate_major_service(Date.new(2016,3))[:service].sample(separate_major_service(Date.new(2016,3))[:service].length)
+  separated = separate_major_service(Date.new(2016,3))
+  major_offering_ids = separated[:major].sample(separated[:major].length)
+  service_offering_ids = separated[:service].sample(separated[:service].length)
   preference = Preference.new
   preference.professor_id = prof_id
   preference.first_major = major_offering_ids.shift
@@ -33,8 +34,9 @@ professors_ids.each do |prof_id|
 end
 
 professors_ids.each do |prof_id|
-  major_offering_ids = separate_major_service(Date.new(2015,8))[:major].sample(separate_major_service(Date.new(2015,8))[:major].length)
-  service_offering_ids = separate_major_service(Date.new(2015,8))[:service].sample(separate_major_service(Date.new(2015,8))[:service].length)
+  separated = separate_major_service(Date.new(2015,8))
+  major_offering_ids = separated[:major].sample(separated[:major].length)
+  service_offering_ids = separated[:service].sample(separated[:service].length)
   preference = Preference.new
   preference.professor_id = prof_id
   preference.first_major = major_offering_ids.shift
@@ -48,8 +50,9 @@ professors_ids.each do |prof_id|
 end
 
 professors_ids.each do |prof_id|
-  major_offering_ids = separate_major_service(Date.new(2015,3))[:major].sample(separate_major_service(Date.new(2015,3))[:major].length)
-  service_offering_ids = separate_major_service(Date.new(2015,3))[:service].sample(separate_major_service(Date.new(2015,3))[:service].length)
+  separated = separate_major_service(Date.new(2015,3))
+  major_offering_ids = separated[:major].sample(separated[:major].length)
+  service_offering_ids = separated[:service].sample(separated[:service].length)
   preference = Preference.new
   preference.professor_id = prof_id
   preference.first_major = major_offering_ids.shift
