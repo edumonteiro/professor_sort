@@ -67,6 +67,11 @@ class Admin::OfferingsController < ApplicationController
     redirect_to admin_offerings_path
   end
 
+  def domagicalltheway
+    Magic.do_magic_all_the_way
+    redirect_to admin_offerings_path
+  end
+
 private
   # Use callbacks to share common setup or constraints between actions.
   def set_offering

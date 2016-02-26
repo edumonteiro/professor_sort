@@ -3,10 +3,10 @@
   <%@lectures.each do |lecture|%>
       <div class="panel-info well">
         <div class="panel-heading">
-          <h3 class='panel-title'><%=lecture.professor.name%></h3>
+          <h3 class='panel-title'><%=decode_semester(lecture.semester)%></h3>
         </div>
         <div class='panel-body'>
-          <h4><%=decode_semester(lecture.semester)%></h4>
+          <h4><%=lecture.professor.name%></h4>
           <h4><%=Offering.decode_schedule(lecture.schedule)%></h4>
         </div>
       </div>

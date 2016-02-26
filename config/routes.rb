@@ -12,6 +12,7 @@ resource :session, only: [:new, :create, :destroy]
 
 namespace :admin do
   get '/offerings/domagic' => 'offerings#domagic'
+  get '/offering/domagicalltheway' => 'offering#domagicalltheway'
   get '/offerings/clear' => 'offerings#clear_assignment'
   resources :professors do
     get '/preferences' => 'professors#preferences'
