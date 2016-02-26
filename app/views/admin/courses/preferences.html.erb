@@ -7,9 +7,21 @@
       <div class='panel-body'>
         <h5>Semester: <%=decode_semester(hash[:semester])%></h5>
         <h5>Schedule: <%=Offering.decode_schedule(hash[:schedule])%></h5>
-        <h5>First choice of <%=hash[:first_choice_of].map { |id| Professor.find(id).name  }%></h5>
-        <h5>Second choice of <%=hash[:second_choice_of].map { |id| Professor.find(id).name  }%></h5>
-        <h5>Third choice of <%=hash[:third_choice_of].map { |id| Professor.find(id).name  }%></h5>
+        <h5>First choice of 
+          <% hash[:first_choice_of].each do |id| %>
+            <button class="btn btn-default"><%= Professor.find(id).name %></button>
+          <% end %>
+        </h5>
+        <h5>Second choice of
+          <%hash[:second_choice_of].each do |id| %>
+            <button class="btn btn-default"><%= Professor.find(id).name  %></button>
+          <% end %>
+        </h5>
+        <h5>Third choice of 
+          <% hash[:third_choice_of].map do |id| %>
+            <button class="btn btn-default"><%= Professor.find(id).name  %></button>
+          <% end %>
+        </h5>
       </div>
     </div>
   <%end%>

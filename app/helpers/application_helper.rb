@@ -53,12 +53,12 @@ module ApplicationHelper
 #   def schedule_conflict?(schedule1,schedule2)
 #     schedule1.gsub!(/[67]/,'z')
 #     schedule2.gsub!(/[67]/,'z')
-#     arr1 = []
-#     i = 0
-#     (schedule1.length / 2).times do
-#       arr1 << schedule1.slice(i,2)
-#       i += 2
-#     end
+    # arr1 = []
+    # i = 0
+    # (schedule1.length / 2).times do
+    #   arr1 << schedule1.slice(i,2)
+    #   i += 2
+    # end
 #     arr2 = []
 #     j = 0
 #     (schedule2.length / 2).times do
