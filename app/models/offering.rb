@@ -47,9 +47,8 @@ class Offering < ActiveRecord::Base
   #     arr1 << self.schedule.slice(i,2)
   #     i += 2
   #   end
-    # unless self.schedule.length > 0 && /^([a-z]\d)*/.match(self.schedule)[0].length == self.schedule.length 
-  # && arr1.length == arr1.uniq.length
-      # errors.add(:schedule, 'is not valid.') 
+  #   unless self.schedule.length > 0 && /^([a-z]\d)*/.match(self.schedule)[0].length == self.schedule.length && arr1.length == arr1.uniq.length
+  #     errors.add(:schedule, 'is not valid.') 
   #   end
   # end
 
