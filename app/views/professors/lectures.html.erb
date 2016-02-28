@@ -1,5 +1,6 @@
 <% if !@lectures.empty? %>
   <h2><%=@lectures.first.professor.name%> Lectures</h2>
+  <div style="float:left;width:40%">
   <%@lectures.each do |lecture|%>
     <div class="panel-primary well">
       <div class="panel-heading">
@@ -11,6 +12,8 @@
       </div>
     </div>
   <%end%>
+  </div>
+  <canvas style='width:400px;height:400px;margin-left:20px' id='lectureChart'></canvas>
 <% else %>
   <h1>You have no lecture yet.</h1>
 <% end %>

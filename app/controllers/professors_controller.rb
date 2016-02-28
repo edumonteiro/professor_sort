@@ -59,6 +59,17 @@ class ProfessorsController < ApplicationController
     @lectures = @professor.lectures    
   end
 
+  def lectures_graph
+    professor = current_professor
+    lectures = professor.lectures    
+    credit_of_semester = Hash.new(0)
+    lectures.each do |lecture|
+      credit_of_semester[lecture.semester] += lecture.course.credits
+    end
+    credit_of_semester = credit_of_semester.sort_by{|k,v|k}.to_h
+    render json: credit_of_semester
+  end
+
   protected
   def professor_params
     params.require(:professor).permit(:name, :email, :kind, :status, :password ,:password_confirmation)
