@@ -234,18 +234,20 @@ class Magic
     end
 
     def schedule_conflict?(schedule1,schedule2)
-      schedule1.gsub!(/[67]/,'z')
-      schedule2.gsub!(/[67]/,'z')
+      sched1 = schedule1
+      sched2 = schedule2
+      sched1.gsub!(/[67]/,'z')
+      sched2.gsub!(/[67]/,'z')
       arr1 = []
       i = 0
-      (schedule1.length / 2).times do
-        arr1 << schedule1.slice(i,2)
+      (sched1.length / 2).times do
+        arr1 << sched1.slice(i,2)
         i += 2
       end
       arr2 = []
       j = 0
-      (schedule2.length / 2).times do
-        arr2 << schedule2.slice(j,2)
+      (sched2.length / 2).times do
+        arr2 << sched2.slice(j,2)
         j += 2
       end
       arr1 & arr2 != [] 
@@ -464,7 +466,6 @@ class Magic
         end
         offering_to_be_assigned.save
       end
-
     end
   
  ######Second version with random assignment of professors and objective function
@@ -534,8 +535,12 @@ class Magic
       {score: score, assignment: final}
     end
 
-
-
+    def implement_random_results(results)
+      results[:assignment].each do |pair|
+      aa = Offering.find(pair[0])
+      aa.professor_id = pair[1]
+      aa.save
+    end
 
   #end of the self assignment
   end

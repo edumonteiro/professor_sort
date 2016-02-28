@@ -6,6 +6,7 @@ class Admin::OfferingsController < ApplicationController
 
 
   def index
+    Copypref.populate_to_copyprefs
     @results = Magic.get_preference_bycourse_copy(Offering.where(semester: current_semester))
     @preferences = Preference.where(semester: current_semester)
     ##stuff in here are hidden unless being clicked

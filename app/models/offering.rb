@@ -2,7 +2,8 @@ class Offering < ActiveRecord::Base
   belongs_to :course
   belongs_to :professor
 
-  # validate :restrict_schedule_format, if: :schedule
+  # validate :restrict_schedule_format
+
 
   def self.decode_schedule(code)
     result = []
@@ -39,16 +40,16 @@ class Offering < ActiveRecord::Base
     result.join(" ") 
   end
 
-  def restrict_schedule_format
-    arr1 = []
-    i = 0
-    (self.schedule.length / 2).times do
-      arr1 << self.schedule.slice(i,2)
-      i += 2
-    end
-    unless self.schedule.length > 0 && /^([a-z]\d)*/.match(self.schedule)[0].length == self.schedule.length && arr1.length == arr1.uniq.length
-      errors.add(:schedule, 'is not valid.') 
-    end
-  end
+  # def restrict_schedule_format
+  #   arr1 = []
+  #   i = 0
+  #   (self.schedule.length / 2).times do
+  #     arr1 << self.schedule.slice(i,2)
+  #     i += 2
+  #   end
+  #   unless self.schedule.length > 0 && /^([a-z]\d)*/.match(self.schedule)[0].length == self.schedule.length && arr1.length == arr1.uniq.length
+  #     errors.add(:schedule, 'is not valid.') 
+  #   end
+  # end
 
 end
