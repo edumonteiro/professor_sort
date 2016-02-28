@@ -5,6 +5,7 @@ root to: 'sessions#new'
 resource :professor, only: [:new, :create, :edit, :update, :show] do
   resources :preferences
   get '/lectures' => 'professors#lectures'
+  get '/lectures_graph' => 'professors#lectures_graph'
 end
 
 resource :session, only: [:new, :create, :destroy]
@@ -39,6 +40,7 @@ namespace :admin do
 end
 
 resources :lectures
+
 
 
 
