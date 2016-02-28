@@ -11,6 +11,8 @@ resource :session, only: [:new, :create, :destroy]
 ####
 
 namespace :admin do
+  get '/offerings/score' => 'offerings#score'
+  post '/offerings/random' => 'offerings#random'
   get '/offerings/domagic' => 'offerings#domagic'
   get '/offerings/domagicalltheway' => 'offerings#domagicalltheway'
   get '/offerings/clear' => 'offerings#clear_assignment'

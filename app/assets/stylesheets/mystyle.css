@@ -292,3 +292,12 @@ footer{
   margin-top: 100px;
   margin-left: -100px;
 }
+
+#view_score {
+  border:2px solid black;
+  padding:5px;
+  width: 50px;
+  margin-left:55%;
+  margin-top:-6%;
+  height:70px;
+}

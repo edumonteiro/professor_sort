@@ -537,9 +537,10 @@ class Magic
 
     def implement_random_results(results)
       results[:assignment].each do |pair|
-      aa = Offering.find(pair[0])
-      aa.professor_id = pair[1]
-      aa.save
+        aa = Offering.find(pair[0])
+        aa.professor_id = pair[1]
+        aa.save
+      end
     end
 
   #end of the self assignment

@@ -37,11 +37,24 @@ function go(){
     $('#needtohide').css("display","none");
     $('.loading').css("display","initial");
     
-  })
+  });
+
   $('#magicallbutton').on('click',function(){
     $('#needtohide').css("display","none");
-    $('.loading').css("display","initial");
-    
+    $('.loading').css("display","initial"); 
+  })
+
+  $('#score_button').on('click',function(){
+    $.ajax({
+      url:'/admin/offerings/score',
+    }).done(function(data){
+      if (data == ""){
+        $('#score_box').text("No Good")
+      }
+      else{
+        $('#score_box').text(data)
+      }
+    })
   })
 
 }

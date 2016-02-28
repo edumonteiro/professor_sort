@@ -98,12 +98,24 @@
 
   <div class='row'>
     <%= link_to 'Notify All Professors (email each professor)', admin_notify_all_path, method: :post, data: {confirm: 'Are you sure?'},class: 'btn btn-warning col-md-4 col-md-offset-1'  %>
+    <div class='btn btn-default col-md-1' style='background:cyan;margin-left:2px;width:150px' id='score_button'>Score</div>
   </div>
   <div class='row'>
     <%= link_to 'Remove all professors', admin_offerings_clear_path, class: 'btn btn-danger col-md-4 col-md-offset-1', data: {confirm: 'Are you sure?'} %>
+    <%= form_tag admin_offerings_random_path, method: :post do %>
+      <%= number_field_tag :number_of_random,nil,{style: 'width:50px;margin:5px 0 0 5px'} %>
+      <%= submit_tag 'Random', {class: 'btn btn-default col-md-1',style: 'background:pink;width:75px;margin-left:2px'} %>
+    <% end %>
   </div>
     <%= link_to 'Magic GO Stepwise!', admin_offerings_domagic_path , method: :get,class: 'btn btn-info col-md-2',style: 'padding:25px;margin-left:60%;margin-top:-6%;height:70px;', id: "magicbutton"  %>
     <%= link_to 'Magic All the Way!', admin_offerings_domagicalltheway_path , method: :get,class: 'btn btn-primary col-md-2',style: 'padding:25px;margin-left:80%;margin-top:-6%;height:70px;', id: "magicallbutton"  %>
+  <div id='view_score'>
+    <div>
+      <u>Score</u>
+    </div>
+    <div id='score_box'>
+    </div>
+  </div>
 
   <!--                                                                -->
   <div class='container'>
