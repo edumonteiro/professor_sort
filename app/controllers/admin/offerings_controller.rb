@@ -53,7 +53,7 @@ class Admin::OfferingsController < ApplicationController
       object.professor_id = nil
       object.save
     end
-      Copypref.populate_to_copyprefs
+    Copypref.populate_to_copyprefs
     redirect_to admin_offerings_path
   end
 
@@ -76,6 +76,20 @@ class Admin::OfferingsController < ApplicationController
 
   def domagicalltheway
     Magic.do_magic_all_the_way
+    redirect_to admin_offerings_path
+  end
+
+  def score
+    begin 
+      score = Magic.calculate_score(10,8,5)
+    rescue
+      score = ""
+    end
+    render plain: score
+  end
+
+  def random
+    Magic.go_random(params[:number_of_random].to_i)
     redirect_to admin_offerings_path
   end
 
