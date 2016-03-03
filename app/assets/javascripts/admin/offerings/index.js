@@ -44,6 +44,12 @@ function go(){
     $('.loading').css("display","initial"); 
   })
 
+
+  $('#random_button').on('click',function(){
+    $('#needtohide').css("display","none");
+    $('.loading').css("display","initial"); 
+  })
+
   $('#score_button').on('click',function(){
     $.ajax({
       url:'/admin/offerings/score',
