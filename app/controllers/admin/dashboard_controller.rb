@@ -26,7 +26,7 @@ class Admin::DashboardController < ApplicationController
     @professors = Professor.all
     @professors.each do |professor|
       Admin::Dashboard.notify_all(professor).deliver
-      flash[:alert] = "Attention, all emails had been sent. Time to fill up bitchesss!"
+      flash[:alert] = "Attention, all emails had been sent. Time to choose your preferences!"
     end
     redirect_to admin_path
   end
