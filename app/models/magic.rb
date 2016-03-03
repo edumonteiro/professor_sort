@@ -532,7 +532,9 @@ class Magic
           score = calculated
         end
       end
-      {score: score, assignment: final}
+      results = {score: score, assignment: final}
+      implement_random_results(results)
+      results
     end
 
     def implement_random_results(results)
