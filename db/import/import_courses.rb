@@ -1,10 +1,9 @@
 require 'csv'
-require 'pry'
 
 data = CSV.read("./db/import/courses.csv")
 header = ["name","credits","kind"]
 sym_head = header.map { |head| head.to_sym}
-# binding.pry
+
 courses = []
 data.each do |row|
   courses << Hash[sym_head.zip(row)]
