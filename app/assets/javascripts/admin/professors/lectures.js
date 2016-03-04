@@ -6,7 +6,6 @@ function go(){
     url: '/professor/lectures_graph',
     dataType: 'json'
   }).done(function(data){
-    debugger
   var data = {
       labels : $.map(data,function(v,i){ return i}),
       datasets : [
