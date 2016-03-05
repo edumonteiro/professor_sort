@@ -11560,20 +11560,10 @@ return jQuery;
   }
 
 })( jQuery );
-$(go);
-$(document).on('page:load',go);
-
-function go(){
-  
-  $('#setSemester').popover();   
-};
-
-$(go);
-$(document).on('page:load',go);
-
-function go(){
-
-  $('.edit_offering').submit(function(event){
+$(function(){$('#setSemester').popover();})
+;
+$(function(){
+ $('.edit_offering').submit(function(event){
     // event.preventDefault();
     var sched = [];
     for(var i = 0 ; i < $('#timeforms').children().length/2; i++){
@@ -11584,14 +11574,10 @@ function go(){
     }
     $('#offering_schedule').val(sched.join(""));
   });
-}
+})
 ;
 
-$(go);
-
-$(document).on('page:load',go);
-
-function go(){
+$(function(){
   $('#offering_course_id').change(function(){
     $('#timeforms').empty();
     $( '#timeforms' ).css('display','none');
@@ -11650,15 +11636,9 @@ function go(){
       }
     })
   })
-
-}
-
+})
 ;
-$(go);
-
-$(document).on('page:load',go);
-
-function go(){
+$(function(){
   $("#major_service_buttons button").eq(0).click(function() {
     $('html, body').animate({
         scrollTop: $("#main_container>h2").eq(0).offset().top -60
@@ -11669,18 +11649,13 @@ function go(){
         scrollTop: $("#main_container>h2").eq(1).offset().top - 60
     }, 500);
 });
-
-
-}
+})
 ;
 (function() {
 
 
 }).call(this);
-$(go);
-$(document).on('page:load',go);
-
-function go(){
+$(function(){
   $.ajax({
     url: '/professor/lectures_graph',
     dataType: 'json'
@@ -11706,7 +11681,7 @@ function go(){
   var lineChart = new Chart(ctx).Line(data,option)
 
   })
-}
+})
 ;
 /*!
  * Bootstrap v3.3.6 (http://getbootstrap.com)
@@ -14072,16 +14047,12 @@ if (typeof jQuery === 'undefined') {
   })
 
 }(jQuery);
-// $(go);
-
-// $(document).on('page:load',go);
-
-// function go(){
-//     var msg = new SpeechSynthesisUtterance($('.alert div').text());
-//     msg.rate = 1;
-//     msg.lang = "es-ES";
-//     window.speechSynthesis.speak(msg);
-// }
+$(function(){  
+  var msg = new SpeechSynthesisUtterance($('.alert div').text());
+  msg.rate = 1;
+  msg.lang = "es-ES";
+  window.speechSynthesis.speak(msg);
+})
 ;
 (function() {
 

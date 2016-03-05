@@ -1,7 +1,4 @@
-$(go);
-$(document).on('page:load',go);
-
-function go(){
+$(function(){
   $.ajax({
     url: '/professor/lectures_graph',
     dataType: 'json'
@@ -27,4 +24,4 @@ function go(){
   var lineChart = new Chart(ctx).Line(data,option)
 
   })
-}
+})

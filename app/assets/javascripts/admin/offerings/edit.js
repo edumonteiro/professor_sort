@@ -1,10 +1,5 @@
-
-$(go);
-$(document).on('page:load',go);
-
-function go(){
-
-  $('.edit_offering').submit(function(event){
+$(function(){
+ $('.edit_offering').submit(function(event){
     // event.preventDefault();
     var sched = [];
     for(var i = 0 ; i < $('#timeforms').children().length/2; i++){
@@ -15,4 +10,4 @@ function go(){
     }
     $('#offering_schedule').val(sched.join(""));
   });
-}
+})

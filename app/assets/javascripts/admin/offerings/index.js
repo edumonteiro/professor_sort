@@ -1,9 +1,5 @@
 
-$(go);
-
-$(document).on('page:load',go);
-
-function go(){
+$(function(){
   $('#offering_course_id').change(function(){
     $('#timeforms').empty();
     $( '#timeforms' ).css('display','none');
@@ -62,6 +58,4 @@ function go(){
       }
     })
   })
-
-}
-
+})
